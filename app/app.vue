@@ -1,6 +1,3 @@
 <template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-  </div>
+<Checkbox :model-value="true" binary />
 </template>
