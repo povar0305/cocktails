@@ -1,75 +1,54 @@
-# Nuxt Minimal Starter
+# Поиск и подбор коктеля
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Это приложение помогает находить и просматривать рецепты коктейлей, фильтровать по ингредиентам и категориям, а также получать персональные рекомендации по результатам опроса.
 
-## Setup
+---
 
-Make sure to install dependencies:
+## Основные функции
+- Поиск коктейлей по названию
+- Фильтрация по ингредиентам, категориям и популярности
+- Просмотр рецептов с изображениями, списком ингредиентов и инструкцией
+- Проведение опросов для получения персональных рекомендаций
+- Добавление коктейлей в избранное
+- Отзывы и оценки
 
+---
+
+## Используемые технологии и библиотеки
+- [Nuxt.js](https://nuxt.com/) — это мощный фреймворк для создания универсальных приложений на базе Vue.js. Он упрощает разработку за счет автоматической настройки маршрутизации, серверного рендеринга и предзагрузки данных, делая веб‑приложения более быстрыми и SEO‑оптимизированными.
+---
+
+## Открытое API
+
+Данное приложение использует API [TheCocktailDB](https://www.thecocktaildb.com/), предоставляющее публичный доступ к базе данных коктейлей. API позволяет:
+
+- Получать список коктейлей по названию, ингредиентам или категориям
+- Получать детали конкретных рецептов
+- Искать коктейли по различным фильтрам
+- Получать список ингредиентов и категорий
+---
+
+## Взаимодействие с проектом
+Установка приложения и зависимостей:
 ```bash
 # npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
+Запуск приложения для локального развертывания  `http://localhost:3000`:
 ```bash
 # npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
-
+Сборка приложения
 ```bash
 # npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
-
+Предарительная локальная сборка билда
 ```bash
 # npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
