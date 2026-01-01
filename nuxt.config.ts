@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import Aura from '@primeuix/themes/aura';
+import Material from '@primeuix/themes/material';
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -7,12 +8,21 @@ export default defineNuxtConfig({
   modules: [
     '@primevue/nuxt-module'
   ],
+  vite: {
+    plugins: [
+      tailwindcss(),
+    ],
+  },
   primevue: {
     autoImport: true,
     options: {
       theme: {
-        preset: Aura
-      }
+        preset: Material
+      },
+      unstyled: false
     }
-  }
+  },
+  css: [
+    './app/assets/styles/main.css'
+  ]
 })
