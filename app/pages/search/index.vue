@@ -1,11 +1,5 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-fghjkl;
+<div>
+  search
+</div>
 </template>
-
-<style scoped>
-
-</style>

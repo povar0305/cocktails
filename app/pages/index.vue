@@ -1,11 +1,5 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-56789
+  <div>
+    index
+  </div>
 </template>
-
-<style scoped>
-
-</style>
