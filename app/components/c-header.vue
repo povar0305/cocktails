@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full pt-6 px-3 lg:justify-between">
+  <div class="flex w-full pt-6 px-3 lg:justify-between flex-col gap-3 lg:flex-row">
     <div class="flex gap-2 lg:gap-3 w-full justify-between lg:flex-row-reverse lg:w-fit">
       <FloatLabel
         :pt="{
@@ -38,31 +38,45 @@
       </Button>
     </div>
 
-    <div class="hidden lg:flex lg:gap-3 lg:items-center">
+    <div class="flex justify-between lg:gap-3 items-center">
       <p class="text-base">
         Всего найдено <span class="font-bold"> 1000 </span>
       </p>
 
-      <div class="flex gap-2">
+      <div class="hidden lg:flex gap-2">
         <MultiSelect
-          v-for="filter in filters"
+          v-for="filter in mappedFilters"
           :key="filter.key"
           :model-value="selectedFilters[filter?.key] || []"
           display="chip"
           :options="filter.options"
-          optionLabel="name"
+          option-label="name"
           filter
-          placeholder="Select Cities"
-          :maxSelectedLabels="3"
+          :placeholder="filter.label"
+          :max-selected-labels="3"
           class="lg:w-60"
         />
       </div>
 
+      <Button
+        class="lg:hidden"
+        variant="text"
+        raised
+        rel="noopener"
+        severity="secondary"
+        @click="openFilterPopup"
+      >
+        <template #icon>
+          <span class="material-icons">filter_alt</span>
+        </template>
+      </Button>
     </div>
   </div>
 </template>
 
 <script setup>
+  import { filterTypes } from '~/constants/filterTypes.js'
+
   defineEmits(['update:query'])
   const props = defineProps({
     query: {
@@ -77,6 +91,8 @@
   const filters = [
     {
       key: 'name',
+      type: filterTypes.multiSelect,
+      label: 'name',
       options: [
         {
           name: 'Name'
@@ -85,6 +101,58 @@
     },
     {
       key: 'name 1',
+      type: filterTypes.multiSelect,
+      label: 'name 1',
+      options: [
+        {
+          name: 'Name'
+        }
+      ]
+    },
+    {
+      key: 'name 2',
+      type: filterTypes.multiSelect,
+      label: 'name 2',
+      options: [
+        {
+          name: 'Name'
+        }
+      ]
+    },
+    {
+      key: 'name 3',
+      type: filterTypes.multiSelect,
+      label: 'name 3',
+      options: [
+        {
+          name: 'Name'
+        }
+      ]
+    },
+    {
+      key: 'name 4',
+      type: filterTypes.multiSelect,
+      label: 'name 4',
+      options: [
+        {
+          name: 'Name'
+        }
+      ]
+    },
+    {
+      key: 'name 5',
+      type: filterTypes.multiSelect,
+      label: 'name 5',
+      options: [
+        {
+          name: 'Name'
+        }
+      ]
+    },
+    {
+      key: 'name 6',
+      type: filterTypes.multiSelect,
+      label: 'name 6',
       options: [
         {
           name: 'Name'
@@ -92,6 +160,9 @@
       ]
     }
   ]
+  const primaryFiltersKey = ['name', 'name 1']
+  const mappedFilters = computed(() => filters.filter(item => primaryFiltersKey.includes(item.key)))
   const selectedFilters = ref({})
+  const openFilterPopup = () => {}
 </script>
 
