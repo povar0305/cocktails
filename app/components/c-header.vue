@@ -1,10 +1,10 @@
 <template>
-  <div class="flex w-full pt-6 px-3">
-    <div class="flex gap-2 w-full justify-between">
+  <div class="flex w-full pt-6 px-3 lg:justify-between">
+    <div class="flex gap-2 lg:gap-3 w-full justify-between lg:flex-row-reverse lg:w-fit">
       <FloatLabel
         :pt="{
           root: {
-            class: 'flex-1 flex'
+            class: 'flex-1 flex lg:max-w-[320px]'
           }
         }"
         variant="on"
@@ -38,6 +38,27 @@
       </Button>
     </div>
 
+    <div class="hidden lg:flex lg:gap-3 lg:items-center">
+      <p class="text-base">
+        Всего найдено <span class="font-bold"> 1000 </span>
+      </p>
+
+      <div class="flex gap-2">
+        <MultiSelect
+          v-for="filter in filters"
+          :key="filter.key"
+          :model-value="selectedFilters[filter?.key] || []"
+          display="chip"
+          :options="filter.options"
+          optionLabel="name"
+          filter
+          placeholder="Select Cities"
+          :maxSelectedLabels="3"
+          class="lg:w-60"
+        />
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -52,5 +73,25 @@
   });
 
   const { query } = props
+
+  const filters = [
+    {
+      key: 'name',
+      options: [
+        {
+          name: 'Name'
+        }
+      ]
+    },
+    {
+      key: 'name 1',
+      options: [
+        {
+          name: 'Name'
+        }
+      ]
+    }
+  ]
+  const selectedFilters = ref({})
 </script>
 
