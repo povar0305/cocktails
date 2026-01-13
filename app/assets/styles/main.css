@@ -1,6 +1,12 @@
 @import "tailwindcss";
+@import 'primeicons/primeicons.css';
 
 body {
   margin: 0;
+  font-family: "Google Sans", sans-serif;
+}
+
+.material-icons {
+  font-size: 1rem;
 }
 
