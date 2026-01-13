@@ -43,12 +43,14 @@
 
 <script setup>
   defineEmits(['update:query'])
-  const { query } = defineProps({
+  const props = defineProps({
     query: {
       type: String,
       default: null,
       required: false
     }
   });
+
+  const { query } = props
 </script>
 
