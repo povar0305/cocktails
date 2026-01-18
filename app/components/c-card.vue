@@ -1,14 +1,11 @@
 <template>
   <Card>
-    <template #header>
-      <img alt="user header" src="https://lh3.googleusercontent.com/o7n-TM_Iyn-cRoPSyqG5Ki7G_OibAvPMeSGjVbZo0zfJaeuPlnBa9twGwMVJM4Mv5nwMrc1excPbFBjpdxmaY5YW=s60" />
-    </template>
+    <template #title>{{ cocktail.cocktail_name }}</template>
 
-    <template #title>Advanced Card</template>
-
-    <template #subtitle>Card subtitle</template>
+    <template #subtitle>{{ cocktail.cocktail_author }}</template>
 
     <template #content>
+      {{getComplexityCards(cocktail.cocktail_complexity_type)}}
       <p class="m-0">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
         quas!
@@ -34,4 +31,12 @@ defineProps({
     required: false
   }
 })
+
+const complexitys = {
+  'легко' : 1
+}
+
+const getComplexityCards = (complexity) => {
+  return complexitys[complexity] || 0
+}
 </script>

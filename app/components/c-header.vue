@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full pt-6 px-3 container lg:justify-between flex-col gap-3 lg:gap-10 lg:flex-row">
+  <div class="flex w-full pt-6 px-3 container md:tw-px-6 lg:tw-px-8 2xl:tw-px-10 lg:justify-between flex-col gap-3 lg:gap-10 lg:flex-row">
     <div class="flex gap-2 lg:gap-3 w-full justify-between lg:flex-row-reverse lg:w-full">
       <FloatLabel
         :pt="{

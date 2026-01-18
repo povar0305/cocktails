@@ -2,11 +2,11 @@
   <div class="flex w-full h-full">
     <div
       v-if="cocktails.length && !isLoading"
-      class="container grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 2xl:grid-cols-4"
+      class="container md:tw-px-6 lg:tw-px-8 2xl:tw-px-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 2xl:grid-cols-4"
     >
       <c-card
-        v-for="cocktail in cocktails"
-        :key="cocktail.id"
+        v-for="(cocktail, index) in cocktails"
+        :key="index"
         :cocktail="cocktail"
       />
     </div>

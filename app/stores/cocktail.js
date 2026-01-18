@@ -5,20 +5,23 @@ import Api from '~/api'
 
 export const useCocktailsStore = defineStore('cocktails', {
   state: () => ({
+    /**
+     * @type Cocktail[]
+     */
     cocktails: [],
     isLoading: false,
     query: null
   }),
   actions: {
     /**
-     *
-     * @param cocktails
+     * Установка значения массива коктейлей
+     * @param {Cocktail[]} cocktails - массив коктейлей
      */
     setCocktails(cocktails = []) {
       this.cocktails = cocktails || []
     },
     /**
-     *
+     * Установка значения поискового запроса
      * @param newValue
      */
     setQuery(newValue) {
@@ -27,40 +30,58 @@ export const useCocktailsStore = defineStore('cocktails', {
       }
     },
     /**
-     *
-     * @returns {Promise<*|{}>}
+     * Получение рандомного коктейля
+     * @returns {Promise<Cocktail|{}>}
      */
-    async getRandomCocktails() {
+    async getRandomCocktail() {
       try {
-        console.log('getRandomCocktails')
         this.isLoading = true
-        // пример асинхронной операции
         const data = await Api.get('api/v1/cocktails/id/random')
 
         return data[0] || {}
       } catch (error) {
         console.error(error)
+        return {}
       } finally {
         this.isLoading = false
       }
     },
     /**
-     *
-     * @returns {Promise<*|{}>}
+     * Получение массива коктейлей по поисковому запросу
+     * @returns {Promise<Cocktail[]>}
      */
     async getCocktailsByName() {
       try {
-        console.log('getCocktailsByName')
         this.isLoading = true
-        // пример асинхронной операции
         if (this.query) {
-          const data = await Api.get(`/api/v1/cocktails/name/${this.query}`)
+          const data = await Api.get(`/api/v1/cocktails/name/${encodeURIComponent(this.query)}`)
           return data || []
         } else {
           return []
         }
       } catch (error) {
         console.error(error)
+        return []
+      } finally {
+        this.isLoading = false
+      }
+    },
+    /**
+     * Получение массива коктейлей по игнредиенту
+     * @returns {Promise<Cocktail[]>}
+     */
+    async getCocktailsByIngredient() {
+      try {
+        this.isLoading = true
+        if (this.query) {
+          const data = await Api.get(`/api/v1/cocktails/ingredient/${encodeURIComponent(this.query)}`)
+          return data || []
+        } else {
+          return []
+        }
+      } catch (error) {
+        console.error(error)
+        return []
       } finally {
         this.isLoading = false
       }

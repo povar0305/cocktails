@@ -7,7 +7,7 @@
 
     <div
       v-if="isLoading"
-      class="flex items-center justify-center fixed w-screen h-screen bg-blue-100 opacity-15 left-0 top-0"
+      class="flex items-center justify-center fixed w-screen h-screen bg-blue-100 opacity-15 left-0 top-0 z-10"
     >
       <ProgressSpinner v-show="isLoading"/>
     </div>
@@ -32,8 +32,10 @@
   const query = ref(cocktailsStore.query || null)
 
   const debouncedGetCocktails = useDebounceFn(async () => {
-    const cocktails = await cocktailsStore.getCocktailsByName()
-    cocktailsStore.setCocktails(cocktails)
+    const cocktails = await cocktailsStore.getCocktailsByName() || []
+    const cocktailsIng = await cocktailsStore.getCocktailsByIngredient() || []
+
+    cocktailsStore.setCocktails([...cocktails, ...cocktailsIng])
   }, 500)
   /**
    * Обновление поискового запроса
@@ -43,7 +45,11 @@
     if (typeof newValue === 'string' || !newValue) {
       cocktailsStore.setQuery(newValue)
 
-      debouncedGetCocktails()
+      if (!newValue) {
+        cocktailsStore.setCocktails([])
+      } else {
+        debouncedGetCocktails()
+      }
     }
   }
 </script>
