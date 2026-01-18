@@ -10,3 +10,6 @@ body {
   font-size: 1rem;
 }
 
+.container {
+  @apply px-4 md:tw-px-6 lg:tw-px-8 2xl:tw-px-10 w-full max-w-full;
+}

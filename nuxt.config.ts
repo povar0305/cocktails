@@ -54,6 +54,14 @@ export default defineNuxtConfig({
     './app/assets/styles/main.css'
   ],
   vite: {
+    server: {
+      proxy: {
+        '/api': {
+          target: 'https://apmix.ru',
+          changeOrigin: true
+        }
+      }
+    },
     plugins: [
       tailwindcss(),
     ]
