@@ -2,14 +2,27 @@
   <Card>
     <template #title>{{ cocktail.cocktail_name }}</template>
 
-    <template #subtitle>{{ cocktail.cocktail_author }}</template>
+    <template #subtitle>
+      <div class="flex gap-2">
+        <span class="material-symbols-outlined">
+          person
+        </span>
+
+        {{ cocktail.cocktail_author }}
+      </div>
+    </template>
 
     <template #content>
-      {{getComplexityCards(cocktail.cocktail_complexity_type)}}
-      <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-        quas!
-      </p>
+      <div
+        v-show="cocktail?.cocktail_taste.length"
+        class="flex gap-2 flex-wrap"
+      >
+        <Chip
+          v-for="chip in cocktail?.cocktail_taste"
+          :key="chip"
+          :label="chip"
+        />
+      </div>
     </template>
 
     <template #footer>
@@ -23,6 +36,7 @@
 
 <script setup>
 import Card from 'primevue/card';
+import Chip from 'primevue/chip';
 
 defineProps({
   cocktail: {
@@ -31,12 +45,4 @@ defineProps({
     required: false
   }
 })
-
-const complexitys = {
-  'легко' : 1
-}
-
-const getComplexityCards = (complexity) => {
-  return complexitys[complexity] || 0
-}
 </script>

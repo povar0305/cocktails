@@ -20,7 +20,6 @@ const MyPreset = definePreset(Aura, {
     }
   }
 });
-
 export default defineNuxtConfig({
   app: {
     head: {
@@ -28,6 +27,10 @@ export default defineNuxtConfig({
         {
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined'
         },
         {
           rel: 'stylesheet',

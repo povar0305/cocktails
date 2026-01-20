@@ -26,9 +26,7 @@
   const isLoading = computed(() => cocktailsStore.isLoading)
 
   const route = useRoute()
-  if (route?.query?.search) {
-    cocktailsStore.setQuery(route?.query?.search)
-  }
+
   const query = ref(cocktailsStore.query || null)
 
   const debouncedGetCocktails = useDebounceFn(async () => {
@@ -52,4 +50,11 @@
       }
     }
   }
+
+  onMounted(async () => {
+    if (route?.query?.search) {
+      onUpdateQuery(route?.query?.search)
+    }
+  })
+
 </script>
