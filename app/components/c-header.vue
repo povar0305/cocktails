@@ -1,10 +1,10 @@
 <template>
-  <div class="flex w-full pt-6 px-3 lg:justify-between flex-col gap-3 lg:flex-row">
-    <div class="flex gap-2 lg:gap-3 w-full justify-between lg:flex-row-reverse lg:w-fit">
+  <div class="flex w-full pt-6 px-3 container md:tw-px-6 lg:tw-px-8 2xl:tw-px-10 lg:justify-between flex-col gap-3 lg:gap-10 lg:flex-row">
+    <div class="flex gap-2 lg:gap-3 w-full justify-between lg:flex-row-reverse lg:w-full">
       <FloatLabel
         :pt="{
           root: {
-            class: 'flex-1 flex lg:max-w-[320px]'
+            class: 'flex-1 flex lg:max-w-full'
           }
         }"
         variant="on"
@@ -15,6 +15,7 @@
             type="text"
             :model-value="query"
             @update:model-value="$emit('update:query', $event.trim())"
+            @keydown.enter="$emit('update:query', query)"
           />
 
           <InputIcon @click="$emit('update:query', null)">
@@ -39,11 +40,17 @@
     </div>
 
     <div class="flex justify-between lg:gap-3 items-center">
-      <p class="text-base">
-        Всего найдено <span class="font-bold"> 1000 </span>
+      <p
+        v-show="cocktails.length"
+        class="text-base whitespace-nowrap"
+      >
+        Всего найдено  <span class="font-bold"> {{ cocktails.length }} </span>
       </p>
 
-      <div class="hidden lg:flex gap-2">
+      <div
+        v-show="filters.length"
+        class="hidden lg:flex gap-2"
+      >
         <MultiSelect
           v-for="filter in mappedFilters"
           :key="filter.key"
@@ -59,6 +66,7 @@
       </div>
 
       <Button
+        v-show="filters.length"
         class="lg:hidden"
         variant="text"
         raised
@@ -76,6 +84,7 @@
 
 <script setup>
   import { filterTypes } from '~/constants/filterTypes.js'
+  import { useCocktailsStore } from '~/stores/cocktail.js'
 
   defineEmits(['update:query'])
   const props = defineProps({
@@ -84,85 +93,17 @@
       default: null,
       required: false
     }
-  });
+  })
 
   const { query } = props
 
-  const filters = [
-    {
-      key: 'name',
-      type: filterTypes.multiSelect,
-      label: 'name',
-      options: [
-        {
-          name: 'Name'
-        }
-      ]
-    },
-    {
-      key: 'name 1',
-      type: filterTypes.multiSelect,
-      label: 'name 1',
-      options: [
-        {
-          name: 'Name'
-        }
-      ]
-    },
-    {
-      key: 'name 2',
-      type: filterTypes.multiSelect,
-      label: 'name 2',
-      options: [
-        {
-          name: 'Name'
-        }
-      ]
-    },
-    {
-      key: 'name 3',
-      type: filterTypes.multiSelect,
-      label: 'name 3',
-      options: [
-        {
-          name: 'Name'
-        }
-      ]
-    },
-    {
-      key: 'name 4',
-      type: filterTypes.multiSelect,
-      label: 'name 4',
-      options: [
-        {
-          name: 'Name'
-        }
-      ]
-    },
-    {
-      key: 'name 5',
-      type: filterTypes.multiSelect,
-      label: 'name 5',
-      options: [
-        {
-          name: 'Name'
-        }
-      ]
-    },
-    {
-      key: 'name 6',
-      type: filterTypes.multiSelect,
-      label: 'name 6',
-      options: [
-        {
-          name: 'Name'
-        }
-      ]
-    }
-  ]
+  const filters = [ ]
   const primaryFiltersKey = ['name', 'name 1']
   const mappedFilters = computed(() => filters.filter(item => primaryFiltersKey.includes(item.key)))
   const selectedFilters = ref({})
   const openFilterPopup = () => {}
+
+  const cocktailsStore = useCocktailsStore()
+  const cocktails = computed(() => cocktailsStore.cocktails)
 </script>
 

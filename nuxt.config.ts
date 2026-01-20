@@ -31,16 +31,27 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined'
+        },
+        {
+          rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Google+Sans'
         }
       ]
     }
   },
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  css: [
+    './app/assets/styles/main.css'
+  ],
+  devtools: {enabled: true},
   modules: [
     '@nuxt/eslint',
+    '@pinia/nuxt',
     '@primevue/nuxt-module'
+  ],
+  plugins: [
+    '~/plugins/primevue.js'
   ],
   primevue: {
     options: {
@@ -49,10 +60,15 @@ export default defineNuxtConfig({
       }
     }
   },
-  css: [
-    './app/assets/styles/main.css'
-  ],
   vite: {
+    server: {
+      proxy: {
+        '/api': {
+          target: 'https://apmix.ru',
+          changeOrigin: true
+        }
+      }
+    },
     plugins: [
       tailwindcss(),
     ]

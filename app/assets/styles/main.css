@@ -6,7 +6,11 @@ body {
   font-family: "Google Sans", sans-serif;
 }
 
-.material-icons {
+.material-icons,
+.material-symbols-outlined {
   font-size: 1rem;
 }
 
+.container {
+  @apply px-4 w-full max-w-full;
+}
