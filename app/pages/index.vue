@@ -2,7 +2,7 @@
   <div class="flex w-full h-auto">
     <div
       v-if="cocktails.length && !isLoading"
-      class="container md:tw-px-6 lg:tw-px-8 2xl:tw-px-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 2xl:grid-cols-4"
+      class="container md:tw-px-6 lg:tw-px-8 2xl:tw-px-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 2xl:grid-cols-4 items-stretch"
     >
       <c-card
         v-for="(cocktail, index) in cocktails"

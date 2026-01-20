@@ -15,6 +15,7 @@
             type="text"
             :model-value="query"
             @update:model-value="$emit('update:query', $event.trim())"
+            @keydown.enter="$emit('update:query', query)"
           />
 
           <InputIcon @click="$emit('update:query', null)">

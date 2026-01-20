@@ -20,6 +20,7 @@ const MyPreset = definePreset(Aura, {
     }
   }
 });
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -40,11 +41,17 @@ export default defineNuxtConfig({
     }
   },
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  css: [
+    './app/assets/styles/main.css'
+  ],
+  devtools: {enabled: true},
   modules: [
     '@nuxt/eslint',
     '@pinia/nuxt',
     '@primevue/nuxt-module'
+  ],
+  plugins: [
+    '~/plugins/primevue.js'
   ],
   primevue: {
     options: {
@@ -53,9 +60,6 @@ export default defineNuxtConfig({
       }
     }
   },
-  css: [
-    './app/assets/styles/main.css'
-  ],
   vite: {
     server: {
       proxy: {

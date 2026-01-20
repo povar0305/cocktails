@@ -31,9 +31,8 @@
 
   const debouncedGetCocktails = useDebounceFn(async () => {
     const cocktails = await cocktailsStore.getCocktailsByName() || []
-    const cocktailsIng = await cocktailsStore.getCocktailsByIngredient() || []
 
-    cocktailsStore.setCocktails([...cocktails, ...cocktailsIng])
+    cocktailsStore.setCocktails(cocktails)
   }, 500)
   /**
    * Обновление поискового запроса
