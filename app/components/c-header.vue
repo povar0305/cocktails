@@ -23,7 +23,7 @@
           </InputIcon>
         </IconField>
 
-        <label>Cocktail name or ingredients</label>
+        <label>Cocktail name</label>
       </FloatLabel>
 
       <Button
@@ -48,20 +48,21 @@
       </p>
 
       <div
-        v-show="filters.length"
+        v-show="mappedFilters.length"
         class="hidden lg:flex gap-2"
       >
         <MultiSelect
           v-for="filter in mappedFilters"
           :key="filter.key"
+          v-show="filter.element === filterTypes.multiSelect"
           :model-value="selectedFilters[filter?.key] || []"
           display="chip"
           :options="filter.options"
-          option-label="name"
           filter
           :placeholder="filter.label"
           :max-selected-labels="3"
           class="lg:w-60"
+          @update:modelValue="onUpdateSelectedFilters({ key: filter?.key, value: $event })"
         />
       </div>
 
@@ -83,8 +84,8 @@
 </template>
 
 <script setup>
-  import { filterTypes } from '~/constants/filterTypes.js'
   import { useCocktailsStore } from '~/stores/cocktail.js'
+  import { filterTypes } from '~/constants/filterTypes.js'
 
   defineEmits(['update:query'])
   const props = defineProps({
@@ -97,10 +98,14 @@
 
   const { query } = props
 
-  const filters = [ ]
-  const primaryFiltersKey = ['name', 'name 1']
-  const mappedFilters = computed(() => filters.filter(item => primaryFiltersKey.includes(item.key)))
-  const selectedFilters = ref({})
+  const filters = computed(() => cocktailsStore.filters || [] )
+  const primaryFiltersKey = ['cocktail_type', 'cocktail_taste']
+  const mappedFilters = computed(() => filters.value.filter(item => primaryFiltersKey.includes(item.key)))
+  const selectedFilters = computed(() => cocktailsStore.selectedFilters )
+  const onUpdateSelectedFilters = ({ key, value = null}) => {
+    cocktailsStore.setSelectedFilters({ key, value })
+  }
+
   const openFilterPopup = () => {}
 
   const cocktailsStore = useCocktailsStore()

@@ -10,9 +10,42 @@ export const useCocktailsStore = defineStore('cocktails', {
      */
     cocktails: [],
     isLoading: false,
-    query: null
+    query: null,
+    /**
+     * @type Filter[]
+     */
+    filters: [],
+    selectedFilters: {}
   }),
   actions: {
+    get getFilteredCocktails() {
+      console.log(this.cocktails.filter(item => {
+        // перебираем все свойства фильтров
+        console.log('item',this.cocktails,  item)
+        // return Object.keys(this.filters).some(key => {
+        //   const filterValue = this.filters[key];
+        //   const itemValue = item[key];
+        //
+        //   if (typeof filterValue === 'string') {
+        //     return itemValue === filterValue;
+        //   } else if (Array.isArray(filterValue)) {
+        //     if (Array.isArray(itemValue)) {
+        //       // Проверяешь, есть ли хотя бы одно совпадение
+        //       return filterValue.some(val => itemValue.includes(val));
+        //     } else {
+        //       // если у элемента свойство не массив, можно либо возвращать false
+        //       // либо создать отдельную логику
+        //       return false;
+        //     }
+        //   } else {
+        //     // Другие типы не ожидаемы; возвращаем false или делаем расширение
+        //     return false;
+        //   }
+        // });
+      }))
+
+      return this.cocktails
+    },
     /**
      * Установка значения массива коктейлей
      * @param {Cocktail[]} cocktails - массив коктейлей
@@ -20,11 +53,29 @@ export const useCocktailsStore = defineStore('cocktails', {
     setCocktails(cocktails = []) {
       this.cocktails = cocktails || []
     },
+
+    /**
+     *Установка значения фильтров
+     * @param {Filter[]} filters - массив из данных по фильтру
+     */
+    setFilters(filters = []) {
+      this.filters = filters || []
+    },
+    /**
+     * Установка выбранных фильтров
+     * @param {string} key - ключ выбранного фильтра
+     * @param {string|number|null} value - значение выбранного фильтра
+     */
+    setSelectedFilters({ key, value = null } = {}) {
+      if (key) {
+        this.selectedFilters[key] = value || null
+      }
+    },
     /**
      * Установка значения поискового запроса
-     * @param newValue
+     * @param {string|null} newValue
      */
-    setQuery(newValue) {
+    setQuery(newValue = null) {
       if (typeof newValue === 'string' || !newValue) {
         this.query = newValue
       }
@@ -55,7 +106,9 @@ export const useCocktailsStore = defineStore('cocktails', {
         this.isLoading = true
         if (this.query) {
           const data = await Api.get(`/api/v1/cocktails/name/${encodeURIComponent(this.query)}`)
-          return data || []
+          return data.map((cocktail) => {
+            cocktail.cocktail_taste.flat(Infinity)
+          }) || []
         } else {
           return []
         }

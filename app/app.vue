@@ -18,6 +18,7 @@
 
 <script setup>
   import { useDebounceFn } from '@vueuse/core'
+  import { filterTypes } from '~/constants/filterTypes.js'
 
   import ProgressSpinner from 'primevue/progressspinner'
   import CHeader from './components/c-header.vue'
@@ -33,6 +34,23 @@
     const cocktails = await cocktailsStore.getCocktailsByName() || []
 
     cocktailsStore.setCocktails(cocktails)
+
+    const filters = [
+      {
+        label: 'Types',
+        key: 'cocktail_type',
+        element: filterTypes.multiSelect,
+        options: cocktails.map((cocktail) => cocktail.cocktail_type)
+      },
+      {
+        label: 'Taste',
+        key: 'cocktail_taste',
+        element: filterTypes.multiSelect,
+        options: [...new Set(cocktails.flatMap(item => item.cocktail_taste).flat(Infinity))]
+      }
+    ]
+
+    cocktailsStore.setFilters(filters)
   }, 500)
   /**
    * Обновление поискового запроса
