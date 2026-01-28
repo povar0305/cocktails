@@ -18,34 +18,6 @@ export const useCocktailsStore = defineStore('cocktails', {
     selectedFilters: {}
   }),
   actions: {
-    get getFilteredCocktails() {
-      console.log(this.cocktails.filter(item => {
-        // перебираем все свойства фильтров
-        console.log('item',this.cocktails,  item)
-        // return Object.keys(this.filters).some(key => {
-        //   const filterValue = this.filters[key];
-        //   const itemValue = item[key];
-        //
-        //   if (typeof filterValue === 'string') {
-        //     return itemValue === filterValue;
-        //   } else if (Array.isArray(filterValue)) {
-        //     if (Array.isArray(itemValue)) {
-        //       // Проверяешь, есть ли хотя бы одно совпадение
-        //       return filterValue.some(val => itemValue.includes(val));
-        //     } else {
-        //       // если у элемента свойство не массив, можно либо возвращать false
-        //       // либо создать отдельную логику
-        //       return false;
-        //     }
-        //   } else {
-        //     // Другие типы не ожидаемы; возвращаем false или делаем расширение
-        //     return false;
-        //   }
-        // });
-      }))
-
-      return this.cocktails
-    },
     /**
      * Установка значения массива коктейлей
      * @param {Cocktail[]} cocktails - массив коктейлей
@@ -107,7 +79,8 @@ export const useCocktailsStore = defineStore('cocktails', {
         if (this.query) {
           const data = await Api.get(`/api/v1/cocktails/name/${encodeURIComponent(this.query)}`)
           return data.map((cocktail) => {
-            cocktail.cocktail_taste.flat(Infinity)
+            cocktail.cocktail_taste = cocktail?.cocktail_taste.flat(Infinity) || []
+            return cocktail
           }) || []
         } else {
           return []

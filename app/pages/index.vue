@@ -40,7 +40,7 @@ import { useCocktailsStore } from '~/stores/cocktail'
 
 const cocktailsStore = useCocktailsStore()
 
-const cocktails = computed(() => cocktailsStore.getFilteredCocktails())
+const cocktails = computed(() => cocktailsStore.cocktails)
 const isLoading = computed(() => cocktailsStore.isLoading)
 const query = computed(() => cocktailsStore.query)
 </script>

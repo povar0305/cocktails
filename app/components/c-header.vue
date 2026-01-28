@@ -48,11 +48,11 @@
       </p>
 
       <div
-        v-show="mappedFilters.length"
+        v-show="primaryFilters.length"
         class="hidden lg:flex gap-2"
       >
         <MultiSelect
-          v-for="filter in mappedFilters"
+          v-for="filter in primaryFilters"
           :key="filter.key"
           v-show="filter.element === filterTypes.multiSelect"
           :model-value="selectedFilters[filter?.key] || []"
@@ -100,7 +100,8 @@
 
   const filters = computed(() => cocktailsStore.filters || [] )
   const primaryFiltersKey = ['cocktail_type', 'cocktail_taste']
-  const mappedFilters = computed(() => filters.value.filter(item => primaryFiltersKey.includes(item.key)))
+  const primaryFilters = computed(() => filters.value.filter(item => primaryFiltersKey.includes(item.key)))
+
   const selectedFilters = computed(() => cocktailsStore.selectedFilters )
   const onUpdateSelectedFilters = ({ key, value = null}) => {
     cocktailsStore.setSelectedFilters({ key, value })
