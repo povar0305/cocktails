@@ -1,11 +1,11 @@
 <template>
   <div class="flex w-full h-auto">
     <div
-      v-if="cocktails.length && !isLoading"
+      v-if="mappedCocktails.length && !isLoading"
       class="container md:tw-px-6 lg:tw-px-8 2xl:tw-px-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 2xl:grid-cols-4 items-stretch"
     >
       <c-card
-        v-for="(cocktail, index) in cocktails"
+        v-for="(cocktail, index) in mappedCocktails"
         :key="index"
         :cocktail="cocktail"
       />
@@ -21,11 +21,11 @@
 
       <div class="flex flex-col gap-2">
         <p class="text-base">
-          {{ query ? "Unfortunately we couldn't find anything" : 'You can search by the full name of the cocktail or ingredient' }}
+          {{ query || (mappedCocktails.length && hasSelectedFilters) ? "Unfortunately we couldn't find anything or update filters" : 'You can search by the full name of the cocktail or ingredient' }}
         </p>
 
         <p
-          v-show="query"
+          v-show="query|| (mappedCocktails.length && hasSelectedFilters)"
           class="text-base"
         >
           Try changing your request
@@ -40,7 +40,11 @@ import { useCocktailsStore } from '~/stores/cocktail'
 
 const cocktailsStore = useCocktailsStore()
 
-const cocktails = computed(() => cocktailsStore.cocktails)
+const cocktails = computed(() => cocktailsStore.filteredCocktails)
+const filteredCocktails = computed(() => cocktailsStore.filteredCocktails)
+const hasSelectedFilters = computed(() => cocktailsStore.hasSelectedFiltersValue)
+const mappedCocktails = computed(()=> hasSelectedFilters.value ? filteredCocktails.value : cocktails.value)
+
 const isLoading = computed(() => cocktailsStore.isLoading)
 const query = computed(() => cocktailsStore.query)
 </script>

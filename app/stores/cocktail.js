@@ -17,6 +17,28 @@ export const useCocktailsStore = defineStore('cocktails', {
     filters: [],
     selectedFilters: {}
   }),
+  getters: {
+    filteredCocktails(state) {
+      return state.cocktails.filter(cocktail => {
+        // Проверяем каждый фильтр
+        return Object.entries(state.selectedFilters).every(([key, values]) => {
+          const cocktailValue = cocktail[key];
+
+          // Проверка: если коктейль содержит один из выбранных значений
+          if (Array.isArray(cocktailValue)) {
+            return values.every(val => cocktailValue.includes(val));
+          } else {
+            return values.includes(cocktailValue);
+          }
+        });
+      });
+    },
+    hasSelectedFiltersValue(state) {
+      return Object.values(state.selectedFilters).some(
+        value => Array.isArray(value) && value.length > 1
+      );
+    }
+  },
   actions: {
     /**
      * Установка значения массива коктейлей
@@ -32,6 +54,7 @@ export const useCocktailsStore = defineStore('cocktails', {
      */
     setFilters(filters = []) {
       this.filters = filters || []
+      console.log(filters)
     },
     /**
      * Установка выбранных фильтров
@@ -39,6 +62,7 @@ export const useCocktailsStore = defineStore('cocktails', {
      * @param {string|number|null} value - значение выбранного фильтра
      */
     setSelectedFilters({ key, value = null } = {}) {
+      console.log('setSelectedFilters',this.selectedFilters)
       if (key) {
         this.selectedFilters[key] = value || null
       }
