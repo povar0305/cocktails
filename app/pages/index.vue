@@ -40,7 +40,7 @@ import { useCocktailsStore } from '~/stores/cocktail'
 
 const cocktailsStore = useCocktailsStore()
 
-const cocktails = computed(() => cocktailsStore.filteredCocktails)
+const cocktails = computed(() => cocktailsStore.cocktails || [])
 const filteredCocktails = computed(() => cocktailsStore.filteredCocktails)
 const hasSelectedFilters = computed(() => cocktailsStore.hasSelectedFiltersValue)
 const mappedCocktails = computed(()=> hasSelectedFilters.value ? filteredCocktails.value : cocktails.value)

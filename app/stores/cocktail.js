@@ -35,7 +35,7 @@ export const useCocktailsStore = defineStore('cocktails', {
     },
     hasSelectedFiltersValue(state) {
       return Object.values(state.selectedFilters).some(
-        value => Array.isArray(value) && value.length > 1
+        value => Array.isArray(value) && value.length > 0
       );
     }
   },
