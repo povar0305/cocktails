@@ -54,7 +54,6 @@ export const useCocktailsStore = defineStore('cocktails', {
      */
     setFilters(filters = []) {
       this.filters = filters || []
-      console.log(filters)
     },
     /**
      * Установка выбранных фильтров
@@ -62,7 +61,6 @@ export const useCocktailsStore = defineStore('cocktails', {
      * @param {string|number|null} value - значение выбранного фильтра
      */
     setSelectedFilters({ key, value = null } = {}) {
-      console.log('setSelectedFilters',this.selectedFilters)
       if (key) {
         this.selectedFilters[key] = value || null
       }
