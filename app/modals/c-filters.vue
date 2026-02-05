@@ -2,7 +2,7 @@
   <vue-final-modal
     :overlay-class="options.overlayClass"
     :class="options.class"
-    :content-class="[options.contentClass, 'me-become-supplier-modal']"
+    :content-class="[options.contentClass, 'c-filter-modal']"
     :overlay-transition="options.overlayTransition"
     :content-transition="options.contentTransition"
     :swipe-to-close="options.swipeToClose"
@@ -13,7 +13,7 @@
       <div
         :class="[
           'column-start w-full',
-          '[&_[data-pc-section=container]]:p-0'
+          '**:data-[pc-section=container]:p-0'
         ]"
       >
         Фильтры

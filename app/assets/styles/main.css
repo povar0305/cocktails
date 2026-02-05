@@ -2,6 +2,7 @@
 @import "tailwindcss";
 
 @reference "tailwindcss";
+
 body {
   margin: 0;
   font-family: "Google Sans", sans-serif;
@@ -15,34 +16,3 @@ body {
 .container {
   @apply px-4 w-full max-w-full;
 }
-
-.c--modal {
-  @apply
-  flex
-  items-end
-  md:items-center
-  md:justify-center
-  w-full
-  ;
-
-  &-overlay {
-    @apply bg-black/40;
-  }
-
-  &-content {
-    @apply
-    flex
-    flex-col
-    items-start
-    w-full
-    bg-white
-    px-4
-    py-10
-    md:px-10
-    md:py-20
-    2xl:px-20
-    relative
-    ;
-  }
-}
-

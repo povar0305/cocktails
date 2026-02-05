@@ -13,6 +13,7 @@
     </div>
 
     <NuxtPage />
+    <modals-container />
   </div>
 </template>
 
@@ -22,6 +23,7 @@
 
   import ProgressSpinner from 'primevue/progressspinner'
   import CHeader from './components/c-header.vue'
+  import { ModalsContainer } from 'vue-final-modal'
 
   const cocktailsStore = useCocktailsStore()
   const isLoading = computed(() => cocktailsStore.isLoading)
