@@ -80,14 +80,17 @@ export const useCocktailsStore = defineStore('cocktails', {
         {
           label: 'Complexity',
           key: 'cocktail_complexity_type',
-          element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_complexity_type).flat(Infinity))]
+          element: filterTypes.rangeText,
+          range: false,
+          // options: [...new Set(this.cocktails.flatMap(item => item.cocktail_complexity_type))]
+          options: ['fdgdgdg', 'ghghg', 'fgh']
         },
         {
           label: 'Score',
           key: 'score',
-          element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.score).flat(Infinity))]
+          element: filterTypes.range,
+          range: true,
+          options: [...new Set(this.cocktails.flatMap(item => Number(item.score.toFixed(2))))].sort()
         }
       ]
     },
