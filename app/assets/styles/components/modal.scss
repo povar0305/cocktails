@@ -1,21 +1,3 @@
-@import 'primeicons/primeicons.css';
-@import "tailwindcss";
-
-@reference "tailwindcss";
-body {
-  margin: 0;
-  font-family: "Google Sans", sans-serif;
-}
-
-.material-icons,
-.material-symbols-outlined {
-  font-size: 1rem;
-}
-
-.container {
-  @apply px-4 w-full max-w-full;
-}
-
 .c--modal {
   @apply
   flex
@@ -45,4 +27,3 @@ body {
     ;
   }
 }
-

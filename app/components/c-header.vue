@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full pt-6 px-3 container md:tw-px-6 lg:tw-px-8 2xl:tw-px-10 lg:justify-between flex-col gap-3 lg:gap-10 lg:flex-row">
+  <div class="flex w-full pt-6 px-3 container md:px-6 lg:px-8 2xl:px-10 lg:justify-between flex-col gap-3 lg:gap-10 lg:flex-row">
     <div class="flex gap-2 lg:gap-3 w-full justify-between lg:flex-row-reverse lg:w-full">
       <FloatLabel
         :pt="{
@@ -84,32 +84,37 @@
 </template>
 
 <script setup>
-  import { useCocktailsStore } from '~/stores/cocktail.js'
-  import { filterTypes } from '~/constants/filterTypes.js'
+import CFilters from '~/modals/c-filters.vue'
 
-  defineEmits(['update:query'])
-  const props = defineProps({
-    query: {
-      type: String,
-      default: null,
-      required: false
-    }
-  })
+import { useCocktailsStore } from '~/stores/cocktail.js'
+import { filterTypes } from '~/constants/filterTypes.js'
+import { useModal } from 'vue-final-modal'
 
-  const { query } = props
-
-  const filters = computed(() => cocktailsStore.filters || [] )
-  const primaryFiltersKey = ['cocktail_type', 'cocktail_taste']
-  const primaryFilters = computed(() => filters.value.filter(item => primaryFiltersKey.includes(item.key)))
-
-  const selectedFilters = computed(() => cocktailsStore.selectedFilters )
-  const onUpdateSelectedFilters = ({ key, value = null}) => {
-    cocktailsStore.setSelectedFilters({ key, value })
+defineEmits(['update:query'])
+const props = defineProps({
+  query: {
+    type: String,
+    default: null,
+    required: false
   }
+})
 
-  const openFilterPopup = () => {}
+const { query } = props
 
-  const cocktailsStore = useCocktailsStore()
-  const cocktails = computed(() => cocktailsStore.cocktails)
+const filters = computed(() => cocktailsStore.filters || [] )
+const primaryFiltersKey = ['cocktail_type', 'cocktail_taste']
+const primaryFilters = computed(() => filters.value.filter(item => primaryFiltersKey.includes(item.key)))
+
+const selectedFilters = computed(() => cocktailsStore.selectedFilters )
+const onUpdateSelectedFilters = ({ key, value = null}) => {
+  cocktailsStore.setSelectedFilters({ key, value })
+}
+
+const { open: openFilterPopup } = useModal({
+  component: CFilters
+})
+
+const cocktailsStore = useCocktailsStore()
+const cocktails = computed(() => cocktailsStore.cocktails)
 </script>
 
