@@ -49,8 +49,7 @@ export const useCocktailsStore = defineStore('cocktails', {
       this.cocktails = cocktails || []
     },
     /**
-     *Установка значения фильтров
-     * @param {Filter[]} filters - массив из данных по фильтру
+     * Установка значения фильтров
      */
     initFilters() {
       this.filters = [
@@ -65,6 +64,30 @@ export const useCocktailsStore = defineStore('cocktails', {
           key: 'cocktail_taste',
           element: filterTypes.multiSelect,
           options: [...new Set(this.cocktails.flatMap(item => item.cocktail_taste).flat(Infinity))]
+        },
+        {
+          label: 'Author',
+          key: 'cocktail_author',
+          element: filterTypes.multiSelect,
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_author).flat(Infinity))]
+        },
+        {
+          label: 'Type drinks',
+          key: 'cocktail_type_drinks',
+          element: filterTypes.multiSelect,
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_type_drinks).flat(Infinity))]
+        },
+        {
+          label: 'Complexity',
+          key: 'cocktail_complexity_type',
+          element: filterTypes.multiSelect,
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_complexity_type).flat(Infinity))]
+        },
+        {
+          label: 'Score',
+          key: 'score',
+          element: filterTypes.multiSelect,
+          options: [...new Set(this.cocktails.flatMap(item => item.score).flat(Infinity))]
         }
       ]
     },
