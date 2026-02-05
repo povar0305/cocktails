@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia'
 
 import Api from '~/api'
+import {filterTypes} from '~/constants/filterTypes.js'
 
 export const useCocktailsStore = defineStore('cocktails', {
   state: () => ({
@@ -47,13 +48,25 @@ export const useCocktailsStore = defineStore('cocktails', {
     setCocktails(cocktails = []) {
       this.cocktails = cocktails || []
     },
-
     /**
      *Установка значения фильтров
      * @param {Filter[]} filters - массив из данных по фильтру
      */
-    setFilters(filters = []) {
-      this.filters = filters || []
+    initFilters() {
+      this.filters = [
+        {
+          label: 'Types',
+          key: 'cocktail_type',
+          element: filterTypes.multiSelect,
+          options: this.cocktails.map((cocktail) => cocktail.cocktail_type)
+        },
+        {
+          label: 'Taste',
+          key: 'cocktail_taste',
+          element: filterTypes.multiSelect,
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_taste).flat(Infinity))]
+        }
+      ]
     },
     /**
      * Установка выбранных фильтров

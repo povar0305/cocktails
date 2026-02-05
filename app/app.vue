@@ -37,22 +37,7 @@
 
     cocktailsStore.setCocktails(cocktails)
 
-    const filters = [
-      {
-        label: 'Types',
-        key: 'cocktail_type',
-        element: filterTypes.multiSelect,
-        options: cocktails.map((cocktail) => cocktail.cocktail_type)
-      },
-      {
-        label: 'Taste',
-        key: 'cocktail_taste',
-        element: filterTypes.multiSelect,
-        options: [...new Set(cocktails.flatMap(item => item.cocktail_taste).flat(Infinity))]
-      }
-    ]
-
-    cocktailsStore.setFilters(filters)
+    cocktailsStore.initFilters()
   }, 500)
   /**
    * Обновление поискового запроса
