@@ -19,3 +19,10 @@
  * @property {string} cocktail_author - Автор или создатель рецепта.
  */
 
+/**
+ * @typedef {Object} Filter
+ * @property {string} key - Ключ для фильтрации
+ * @property {string[]} options - Массив строк для дропа/селектора/радио кнопок
+ * @property {string} label - Заголовок инпута
+ */
+

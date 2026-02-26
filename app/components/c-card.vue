@@ -3,10 +3,10 @@
     <template #title>
       <div class="flex justify-between w-full">
         <div class="flex items-center gap-2 w-80">
-          {{ cocktail.cocktail_name }}
+          {{ cocktail?.cocktail_name }}
 
           <span
-            v-tooltip.top="cocktail.cocktail_complexity_type"
+            v-tooltip.top="cocktail?.cocktail_complexity_type"
             :class="[
               'material-symbols-outlined',
               iconByComplexity[cocktail?.cocktail_complexity_type]?.colorClass
@@ -18,7 +18,7 @@
 
         <Button
           variant="text"
-          @click="addToFavorite(cocktail.id)"
+          @click="addToFavorite(cocktail?.id)"
         >
           <template #icon>
             <span
@@ -56,10 +56,10 @@
     <template #content>
       <Fieldset
         class="h-full"
-        :legend="cocktail.cocktail_type"
+        :legend="cocktail?.cocktail_type"
       >
         <p class="m-0 text-base">
-          {{ cocktail.cocktail_note }}
+          {{ cocktail?.cocktail_note }}
         </p>
       </Fieldset>
     </template>

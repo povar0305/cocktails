@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full pt-6 px-3 container md:tw-px-6 lg:tw-px-8 2xl:tw-px-10 lg:justify-between flex-col gap-3 lg:gap-10 lg:flex-row">
+  <div class="flex w-full pt-6 px-3 container md:px-6 lg:px-8 2xl:px-10 lg:justify-between flex-col gap-3 lg:gap-10 lg:flex-row">
     <div class="flex gap-2 lg:gap-3 w-full justify-between lg:flex-row-reverse lg:w-full">
       <FloatLabel
         :pt="{
@@ -23,7 +23,7 @@
           </InputIcon>
         </IconField>
 
-        <label>Cocktail name or ingredients</label>
+        <label>Cocktail name</label>
       </FloatLabel>
 
       <Button
@@ -48,20 +48,21 @@
       </p>
 
       <div
-        v-show="filters.length"
+        v-show="primaryFilters.length"
         class="hidden lg:flex gap-2"
       >
         <MultiSelect
-          v-for="filter in mappedFilters"
+          v-for="filter in primaryFilters"
           :key="filter.key"
+          v-show="filter.element === filterTypes.multiSelect"
           :model-value="selectedFilters[filter?.key] || []"
           display="chip"
           :options="filter.options"
-          option-label="name"
           filter
           :placeholder="filter.label"
           :max-selected-labels="3"
           class="lg:w-60"
+          @update:modelValue="onUpdateSelectedFilters({ key: filter?.key, value: $event })"
         />
       </div>
 
@@ -83,27 +84,37 @@
 </template>
 
 <script setup>
-  import { filterTypes } from '~/constants/filterTypes.js'
-  import { useCocktailsStore } from '~/stores/cocktail.js'
+import CFilters from '~/modals/c-filters.vue'
 
-  defineEmits(['update:query'])
-  const props = defineProps({
-    query: {
-      type: String,
-      default: null,
-      required: false
-    }
-  })
+import { useCocktailsStore } from '~/stores/cocktail.js'
+import { filterTypes } from '~/constants/filterTypes.js'
+import { useModal } from 'vue-final-modal'
 
-  const { query } = props
+defineEmits(['update:query'])
+const props = defineProps({
+  query: {
+    type: String,
+    default: null,
+    required: false
+  }
+})
 
-  const filters = [ ]
-  const primaryFiltersKey = ['name', 'name 1']
-  const mappedFilters = computed(() => filters.filter(item => primaryFiltersKey.includes(item.key)))
-  const selectedFilters = ref({})
-  const openFilterPopup = () => {}
+const { query } = props
 
-  const cocktailsStore = useCocktailsStore()
-  const cocktails = computed(() => cocktailsStore.cocktails)
+const cocktailsStore = useCocktailsStore()
+const cocktails = computed(() => cocktailsStore.cocktails)
+
+const filters = computed(() => cocktailsStore.filters || [] )
+const primaryFiltersKey = ['cocktail_type', 'cocktail_taste']
+
+const primaryFilters = computed(() => filters.value.filter(item => primaryFiltersKey.includes(item.key)))
+const selectedFilters = computed(() => cocktailsStore.selectedFilters )
+const onUpdateSelectedFilters = ({ key, value = null}) => {
+  cocktailsStore.setSelectedFilters({ key, value })
+}
+
+const { open: openFilterPopup } = useModal({
+  component: CFilters
+})
 </script>
 

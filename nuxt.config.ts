@@ -42,13 +42,15 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-07-15',
   css: [
-    './app/assets/styles/main.css'
+    './app/assets/styles/main.css',
+    'vue-final-modal/style.css',
   ],
   devtools: {enabled: true},
   modules: [
     '@nuxt/eslint',
     '@pinia/nuxt',
-    '@primevue/nuxt-module'
+    '@primevue/nuxt-module',
+    '@vue-final-modal/nuxt'
   ],
   plugins: [
     '~/plugins/primevue.js'

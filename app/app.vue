@@ -13,6 +13,7 @@
     </div>
 
     <NuxtPage />
+    <modals-container />
   </div>
 </template>
 
@@ -21,18 +22,21 @@
 
   import ProgressSpinner from 'primevue/progressspinner'
   import CHeader from './components/c-header.vue'
+  import { ModalsContainer } from 'vue-final-modal'
 
   const cocktailsStore = useCocktailsStore()
   const isLoading = computed(() => cocktailsStore.isLoading)
 
   const route = useRoute()
 
-  const query = ref(cocktailsStore.query || null)
+  const query = ref(route.query?.search || null)
 
   const debouncedGetCocktails = useDebounceFn(async () => {
     const cocktails = await cocktailsStore.getCocktailsByName() || []
 
     cocktailsStore.setCocktails(cocktails)
+
+    cocktailsStore.initFilters()
   }, 500)
   /**
    * Обновление поискового запроса
@@ -49,11 +53,4 @@
       }
     }
   }
-
-  onMounted(async () => {
-    if (route?.query?.search) {
-      onUpdateQuery(route?.query?.search)
-    }
-  })
-
 </script>
