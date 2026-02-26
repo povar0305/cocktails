@@ -63,11 +63,13 @@ const { options } = useModalOptions()
 
 const filters = computed(() => cocktailsStore.filters || [] )
 const filtersKey = [
+  'cocktail_base_type',
   'cocktail_type',
   'cocktail_taste',
   'cocktail_author',
   'cocktail_type_drinks',
   'cocktail_complexity_type',
+  'cocktail_like',
   'score'
 ]
 const mappedFilters = computed(() => filters.value.filter(item => filtersKey.includes(item.key)))

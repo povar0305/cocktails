@@ -29,7 +29,7 @@
 
   const route = useRoute()
 
-  const query = ref(cocktailsStore.query || null)
+  const query = ref(route.query?.search || null)
 
   const debouncedGetCocktails = useDebounceFn(async () => {
     const cocktails = await cocktailsStore.getCocktailsByName() || []
@@ -53,11 +53,4 @@
       }
     }
   }
-
-  onMounted(async () => {
-    if (route?.query?.search) {
-      onUpdateQuery(route?.query?.search)
-    }
-  })
-
 </script>

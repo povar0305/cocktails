@@ -55,6 +55,12 @@ export const useCocktailsStore = defineStore('cocktails', {
     initFilters() {
       this.filters = [
         {
+          label: 'Base type',
+          key: 'cocktail_base_type',
+          element: filterTypes.multiSelect,
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_base_type))].sort()
+        },
+        {
           label: 'Types',
           key: 'cocktail_type',
           element: filterTypes.multiSelect,
@@ -83,6 +89,12 @@ export const useCocktailsStore = defineStore('cocktails', {
           key: 'cocktail_complexity_type',
           element: filterTypes.multiSelect,
           options: [...new Set(this.cocktails.flatMap(item => item.cocktail_complexity_type))].sort()
+        },
+        {
+          label: 'Like',
+          key: 'cocktail_like',
+          element: filterTypes.multiSelect,
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_like))].sort()
         },
         {
           label: 'Score',
