@@ -120,7 +120,6 @@ const mappedFilters = computed(() => filters.value.filter(item => filtersKey.inc
 
 const selectedFilters = computed(() => cocktailsStore.selectedFilters)
 const onUpdateSelectedFilters = ({ key, value = null, type= null, options = [] }) => {
-  console.log('value',value)
   if (type === filterTypes.rangeText) {
     cocktailsStore.setSelectedFilters({ key, value: options[value] })
   } else {
