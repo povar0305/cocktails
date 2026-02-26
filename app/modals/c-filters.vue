@@ -88,11 +88,6 @@
                     {{ option }}
                   </span>
                 </div>
-
-                <pre>
-                                  {{selectedFilters}}
-
-                </pre>
               </div>
             </div>
           </template>
@@ -127,7 +122,6 @@ const selectedFilters = computed(() => cocktailsStore.selectedFilters)
 const onUpdateSelectedFilters = ({ key, value = null, type= null, options = [] }) => {
   console.log('value',value)
   if (type === filterTypes.rangeText) {
-    // console.log(options, { key, value: options[value] }, value)
     cocktailsStore.setSelectedFilters({ key, value: options[value] })
   } else {
     cocktailsStore.setSelectedFilters({ key, value})
