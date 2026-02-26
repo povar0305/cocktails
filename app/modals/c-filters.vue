@@ -44,52 +44,6 @@
               append-to="self"
               @update:modelValue="onUpdateSelectedFilters({ key: filter?.key, value: $event})"
             />
-
-            <div
-              v-else-if="filter.element === filterTypes.range || filter.element === filterTypes.rangeText"
-              class="flex flex-col gap-3"
-            >
-              <span class="text-lg tetx-white">
-                {{ filter.label }} - {{ getSelectedFilterValueRange(filter)}}
-              </span>
-
-              <div class="flex flex-col gap-2">
-                <div
-                  v-if="filter.element === filterTypes.rangeText"
-                  class="flex justify-between"
-                >
-                  <span
-                    v-for="option in Array.from({ length: filter.options.length }, (_, i) => i + 1)"
-                    :key="option"
-                    class="text-white/60"
-                  >
-                    {{ option }}
-                  </span>
-                </div>
-
-                <Slider
-                  :model-value="selectedFilters[filter?.key] || 0"
-                  :max="filterTypes.range ? filter.options[filter.options.length - 1] : filter.options.length"
-                  :min="0"
-                  :range="filter.range || false"
-                  :step="1"
-                  @update:model-value="onUpdateSelectedFilters({ key: filter?.key, value: $event, type: filter.element, options: filter.options })"
-                />
-
-                <div
-                  v-if="filter.element === filterTypes.range"
-                  class="flex justify-between"
-                >
-                  <span
-                    v-for="option in [filter.options[0], filter.options[filter.options.length - 1]]"
-                    :key="option"
-                    class="text-white/60"
-                  >
-                    {{ option }}
-                  </span>
-                </div>
-              </div>
-            </div>
           </template>
         </div>
       </div>
@@ -119,15 +73,7 @@ const filtersKey = [
 const mappedFilters = computed(() => filters.value.filter(item => filtersKey.includes(item.key)))
 
 const selectedFilters = computed(() => cocktailsStore.selectedFilters)
-const onUpdateSelectedFilters = ({ key, value = null, type= null, options = [] }) => {
-  if (type === filterTypes.rangeText) {
-    cocktailsStore.setSelectedFilters({ key, value: options[value] })
-  } else {
-    cocktailsStore.setSelectedFilters({ key, value})
-  }
-}
-
-const getSelectedFilterValueRange = (filter) => {
-    return (filter.element === filterTypes.range ? selectedFilters.value[filter.key] : filter.options[selectedFilters.value[filter.key]] )|| 0
+const onUpdateSelectedFilters = ({ key, value = null }) => {
+  cocktailsStore.setSelectedFilters({ key, value})
 }
 </script>

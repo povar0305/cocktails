@@ -19,7 +19,6 @@
 
 <script setup>
   import { useDebounceFn } from '@vueuse/core'
-  import { filterTypes } from '~/constants/filterTypes.js'
 
   import ProgressSpinner from 'primevue/progressspinner'
   import CHeader from './components/c-header.vue'

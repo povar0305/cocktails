@@ -23,16 +23,17 @@ export const useCocktailsStore = defineStore('cocktails', {
       return state.cocktails.filter(cocktail => {
         // Проверяем каждый фильтр
         return Object.entries(state.selectedFilters).every(([key, values]) => {
-          const cocktailValue = cocktail[key];
+          const cocktailValue = cocktail[key]
 
-          // Проверка: если коктейль содержит один из выбранных значений
           if (Array.isArray(cocktailValue)) {
-            return values.every(val => cocktailValue.includes(val));
-          } else {
-            return values.includes(cocktailValue);
+            return values.some(val => cocktailValue?.includes(val))
+          } else if (typeof cocktailValue === 'string') {
+            return values.includes(cocktailValue)
+          } else if ( typeof cocktailValue === 'number' ) {
+            return Number(cocktailValue).toFixed(2) == values
           }
-        });
-      });
+        })
+      })
     },
     hasSelectedFiltersValue(state) {
       return Object.values(state.selectedFilters).some(
@@ -63,33 +64,30 @@ export const useCocktailsStore = defineStore('cocktails', {
           label: 'Taste',
           key: 'cocktail_taste',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_taste).flat(Infinity))]
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_taste).flat(Infinity))].sort()
         },
         {
           label: 'Author',
           key: 'cocktail_author',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_author).flat(Infinity))]
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_author).flat(Infinity))].sort()
         },
         {
           label: 'Type drinks',
           key: 'cocktail_type_drinks',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_type_drinks).flat(Infinity))]
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_type_drinks).flat(Infinity))].sort()
         },
         {
           label: 'Complexity',
           key: 'cocktail_complexity_type',
-          element: filterTypes.rangeText,
-          range: false,
-          // options: [...new Set(this.cocktails.flatMap(item => item.cocktail_complexity_type))]
-          options: ['fdgdgdg', 'ghghg', 'fgh']
+          element: filterTypes.multiSelect,
+          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_complexity_type))].sort()
         },
         {
           label: 'Score',
           key: 'score',
-          element: filterTypes.range,
-          range: true,
+          element: filterTypes.multiSelect,
           options: [...new Set(this.cocktails.flatMap(item => Number(item.score.toFixed(2))))].sort()
         }
       ]
