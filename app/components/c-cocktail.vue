@@ -97,18 +97,12 @@ import Chip from "primevue/chip"
 import Fieldset from 'primevue/fieldset'
 import Timeline from 'primevue/timeline'
 
-import { useRoute } from 'vue-router'
-import { useCocktailStore } from '~/stores/cocktail'
 import { defineProps } from 'vue';
 
 const props = defineProps<{
   cocktail: Object;
 }>();
 
-const route = useRoute()
-const id = route.params?.id as string
-
-const cocktailStore = useCocktailStore()
 /**
  * Получение корректного массива вкусов коктейля
  * @param chips - массив вкусов коктейля
@@ -122,6 +116,4 @@ const mappedChips = computed(() => {
 })
 
 const instructionsArray = computed(() => props.cocktail?.cocktail_build.split('\n').map((step) => step.replace(/^\d+\.\s*/, '')).filter(str => str.trim() !== ''))
-
-cocktailStore.getCocktailData(id)
 </script>

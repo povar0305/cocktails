@@ -16,7 +16,7 @@
 import Breadcrumb from 'primevue/breadcrumb'
 
 import { useRoute } from 'vue-router'
-import { useCocktailStore } from '~/stores/cocktail'
+import { useCocktailsStore } from '~/stores/cocktails'
 
 const route = useRoute()
 const id = route.params?.id as string
@@ -33,7 +33,7 @@ const breadcrumbs = computed(() => [
   }
 ])
 
-const cocktailStore = useCocktailStore()
+const cocktailStore = useCocktailsStore()
 const cocktail = computed(() => cocktailStore.cocktail || null)
 
 cocktailStore.getCocktailData(id)

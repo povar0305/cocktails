@@ -9,6 +9,7 @@ export const useCocktailsStore = defineStore('cocktails', {
      * @type Cocktail[]
      */
     cocktails: [],
+    cocktail: null,
     isLoading: false,
     query: null,
     /**
@@ -181,6 +182,21 @@ export const useCocktailsStore = defineStore('cocktails', {
       } catch (error) {
         console.error(error)
         return []
+      } finally {
+        this.isLoading = false
+      }
+    },
+    async getCocktailData(id) {
+      try {
+        this.isLoading = true
+
+        this.cocktail = await Api.get(`/api/v1/cocktails/id/${id}`) || null
+
+        return data
+      } catch (error) {
+        return null
+
+        console.error(error)
       } finally {
         this.isLoading = false
       }
