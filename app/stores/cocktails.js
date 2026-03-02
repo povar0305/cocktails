@@ -1,8 +1,7 @@
-// ~/stores/counter.js
 import { defineStore } from 'pinia'
 
 import Api from '~/api'
-import {filterTypes} from '~/constants/filterTypes.js'
+import { filterTypes } from '~/constants/filterTypes.js'
 
 export const useCocktailsStore = defineStore('cocktails', {
   state: () => ({
@@ -10,6 +9,7 @@ export const useCocktailsStore = defineStore('cocktails', {
      * @type Cocktail[]
      */
     cocktails: [],
+    cocktail: null,
     isLoading: false,
     query: null,
     /**
@@ -36,9 +36,9 @@ export const useCocktailsStore = defineStore('cocktails', {
       })
     },
     hasSelectedFiltersValue(state) {
-      return Object.values(state.selectedFilters).some(
+      return state?.selectedFilters !== undefined && Object.values(state?.selectedFilters)?.length ? Object.values(state.selectedFilters).some(
         value => Array.isArray(value) && value.length > 0
-      );
+      ) : false
     }
   },
   actions: {
@@ -58,51 +58,54 @@ export const useCocktailsStore = defineStore('cocktails', {
           label: 'Base type',
           key: 'cocktail_base_type',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_base_type))].sort()
+          options: [...new Set(this.cocktails.flatMap(item => item?.cocktail_base_type))].sort()
         },
         {
           label: 'Types',
           key: 'cocktail_type',
           element: filterTypes.multiSelect,
-          options: this.cocktails.map((cocktail) => cocktail.cocktail_type)
+          options: this.cocktails.map((cocktail) => cocktail?.cocktail_type)
         },
         {
           label: 'Taste',
           key: 'cocktail_taste',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_taste).flat(Infinity))].sort()
+          options: [...new Set(this.cocktails.flatMap(item => item?.cocktail_taste).flat(Infinity))].sort()
         },
         {
           label: 'Author',
           key: 'cocktail_author',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_author).flat(Infinity))].sort()
+          options: [...new Set(this.cocktails.flatMap(item => item?.cocktail_author).flat(Infinity))].sort()
         },
         {
           label: 'Type drinks',
           key: 'cocktail_type_drinks',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_type_drinks).flat(Infinity))].sort()
+          options: [...new Set(this.cocktails.flatMap(item => item?.cocktail_type_drinks).flat(Infinity))].sort()
         },
         {
           label: 'Complexity',
           key: 'cocktail_complexity_type',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_complexity_type))].sort()
+          options: [...new Set(this.cocktails.flatMap(item => item?.cocktail_complexity_type))].sort()
         },
         {
           label: 'Like',
           key: 'cocktail_like',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => item.cocktail_like))].sort()
+          options: [...new Set(this.cocktails.flatMap(item => item?.cocktail_like))].sort()
         },
         {
           label: 'Score',
           key: 'score',
           element: filterTypes.multiSelect,
-          options: [...new Set(this.cocktails.flatMap(item => Number(item.score.toFixed(2))))].sort()
+          options: [...new Set(this.cocktails.flatMap(item => Number(item?.score.toFixed(2))))].sort()
         }
       ]
+      this.selectedFilters = this.filters.map((filter) => {
+        return filter.key
+      })
     },
     /**
      * Установка выбранных фильтров
@@ -179,6 +182,21 @@ export const useCocktailsStore = defineStore('cocktails', {
       } catch (error) {
         console.error(error)
         return []
+      } finally {
+        this.isLoading = false
+      }
+    },
+    async getCocktailData(id) {
+      try {
+        this.isLoading = true
+
+        this.cocktail = await Api.get(`/api/v1/cocktails/id/${id}`) || null
+
+        return data
+      } catch (error) {
+        return null
+
+        console.error(error)
       } finally {
         this.isLoading = false
       }

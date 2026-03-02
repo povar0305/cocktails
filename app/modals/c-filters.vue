@@ -54,7 +54,7 @@
 <script setup>
 import { useModalOptions } from '~/compoable/modal.composable.js'
 import { VueFinalModal } from 'vue-final-modal'
-import { useCocktailsStore } from '~/stores/cocktail.js'
+import { useCocktailsStore } from '~/stores/cocktails.js'
 import { filterTypes } from '~/constants/filterTypes.js'
 
 const cocktailsStore = useCocktailsStore()
