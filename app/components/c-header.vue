@@ -86,7 +86,7 @@
 <script setup>
 import CFilters from '~/modals/c-filters.vue'
 
-import { useCocktailsStore } from '~/stores/cocktail.js'
+import { useCocktailsStore } from '~/stores/cocktails.js'
 import { filterTypes } from '~/constants/filterTypes.js'
 import { useModal } from 'vue-final-modal'
 

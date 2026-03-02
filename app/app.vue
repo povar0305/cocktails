@@ -1,13 +1,8 @@
 <template>
-  <div class="w-full fixed h-full flex gap-10 flex-col pb-10">
-    <c-header
-      :query="query"
-      @update:query="onUpdateQuery"
-    />
-
+  <div class="w-full fixed h-screen flex gap-10 flex-col pb-10">
     <div
       v-if="isLoading"
-      class="flex items-center justify-center fixed w-screen h-screen bg-blue-100 opacity-15 left-0 top-0 z-10"
+      class="flex items-center justify-center fixed w-screen h-full bg-blue-100 opacity-15 left-0 top-0 z-10"
     >
       <ProgressSpinner v-show="isLoading"/>
     </div>
@@ -18,39 +13,13 @@
 </template>
 
 <script setup>
-  import { useDebounceFn } from '@vueuse/core'
+import ProgressSpinner from 'primevue/progressspinner'
 
-  import ProgressSpinner from 'primevue/progressspinner'
-  import CHeader from './components/c-header.vue'
-  import { ModalsContainer } from 'vue-final-modal'
+import { ModalsContainer } from 'vue-final-modal'
+import { useCocktailsStore } from '~/stores/cocktails.js'
+import { useCocktailStore } from '~/stores/cocktail.js'
 
-  const cocktailsStore = useCocktailsStore()
-  const isLoading = computed(() => cocktailsStore.isLoading)
-
-  const route = useRoute()
-
-  const query = ref(route.query?.search || null)
-
-  const debouncedGetCocktails = useDebounceFn(async () => {
-    const cocktails = await cocktailsStore.getCocktailsByName() || []
-
-    cocktailsStore.setCocktails(cocktails)
-
-    cocktailsStore.initFilters()
-  }, 500)
-  /**
-   * Обновление поискового запроса
-   * @param {String|null} newValue - новое значение для поиска
-   */
-  const onUpdateQuery = (newValue = null) => {
-    if (typeof newValue === 'string' || !newValue) {
-      cocktailsStore.setQuery(newValue)
-
-      if (!newValue) {
-        cocktailsStore.setCocktails([])
-      } else {
-        debouncedGetCocktails()
-      }
-    }
-  }
+const cocktailsStore = useCocktailsStore()
+const cocktailStore = useCocktailStore()
+const isLoading = computed(() => cocktailsStore.isLoading || cocktailStore.isLoading)
 </script>

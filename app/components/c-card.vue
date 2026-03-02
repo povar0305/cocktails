@@ -3,7 +3,9 @@
     <template #title>
       <div class="flex justify-between w-full">
         <div class="flex items-center gap-2 w-80">
-          {{ cocktail?.cocktail_name }}
+          <nuxt-link :to="`cocktail/${cocktail?.id}`">
+            {{ cocktail?.cocktail_name }}
+          </nuxt-link>
 
           <span
             v-tooltip.top="cocktail?.cocktail_complexity_type"
@@ -36,7 +38,6 @@
             </span>
           </template>
         </Button>
-
       </div>
     </template>
 

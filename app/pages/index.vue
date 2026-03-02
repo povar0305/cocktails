@@ -1,5 +1,10 @@
 <template>
-  <div class="flex w-full h-auto">
+  <div class="flex w-full h-full gap-10 flex-col">
+    <c-header
+      :query="query"
+      @update:query="onUpdateQuery"
+    />
+
     <div
       v-if="mappedCocktails.length && !isLoading"
       class="container md:px-6 lg:px-8 2xl:px-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 2xl:grid-cols-4 items-stretch"
@@ -36,7 +41,10 @@
 </template>
 
 <script setup>
-import { useCocktailsStore } from '~/stores/cocktail'
+import CHeader from '~/components/c-header.vue'
+
+import { useCocktailsStore } from '~/stores/cocktails'
+import { useDebounceFn } from '@vueuse/core'
 
 const cocktailsStore = useCocktailsStore()
 
@@ -46,5 +54,35 @@ const hasSelectedFilters = computed(() => cocktailsStore.hasSelectedFiltersValue
 const mappedCocktails = computed(()=> hasSelectedFilters.value ? filteredCocktails.value : cocktails.value)
 
 const isLoading = computed(() => cocktailsStore.isLoading)
-const query = computed(() => cocktailsStore.query)
+
+const route = useRoute()
+const query = computed(() => route.query.search || cocktailsStore.query || null)
+
+const debouncedGetCocktails = useDebounceFn(async () => {
+  const cocktails = await cocktailsStore.getCocktailsByName() || []
+
+  cocktailsStore.setCocktails(cocktails)
+
+  cocktailsStore.initFilters()
+}, 500)
+/**
+ * Обновление поискового запроса
+ * @param {String|null} newValue - новое значение для поиска
+ */
+const onUpdateQuery = (newValue = null) => {
+  if (typeof newValue === 'string' || !newValue) {
+    cocktailsStore.setQuery(newValue)
+    navigateTo(`/?search=${query.value}`)
+    if (!newValue) {
+      cocktailsStore.setCocktails([])
+    } else {
+      debouncedGetCocktails()
+    }
+  }
+}
+onMounted(() => {
+  if (route.query.search) {
+    onUpdateQuery(route.query.search)
+  }
+})
 </script>

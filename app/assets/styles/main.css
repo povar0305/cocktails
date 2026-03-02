@@ -3,6 +3,11 @@
 
 @reference "tailwindcss";
 
+:root {
+  --p-timeline-event-min-height: 3rem;
+}
+
+
 body {
   margin: 0;
   font-family: "Google Sans", sans-serif;
