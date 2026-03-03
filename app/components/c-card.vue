@@ -3,24 +3,24 @@
     <template #title>
       <div class="flex justify-between w-full">
         <div class="flex items-center gap-2 w-80">
-          <nuxt-link :to="`cocktail/${cocktail?.id}`">
-            {{ cocktail?.cocktail_name }}
+          <nuxt-link :to="`cocktail/${cocktail.id}`">
+            {{ cocktail.cocktail_name }}
           </nuxt-link>
 
           <span
-            v-tooltip.top="cocktail?.cocktail_complexity_type"
+            v-tooltip.top="cocktail.cocktail_complexity_type"
             :class="[
               'material-symbols-outlined',
-              iconByComplexity[cocktail?.cocktail_complexity_type]?.colorClass
+              iconByComplexity[cocktail.cocktail_complexity_type]?.colorClass
             ]"
           >
-            {{ iconByComplexity[cocktail?.cocktail_complexity_type]?.icon || 'question_mark' }}
+            {{ iconByComplexity[cocktail.cocktail_complexity_type]?.icon || 'question_mark' }}
           </span>
         </div>
 
         <Button
           variant="text"
-          @click="addToFavorite(cocktail?.id)"
+          @click="addToFavorite(cocktail.id)"
         >
           <template #icon>
             <span
@@ -67,16 +67,17 @@
   </Card>
 </template>
 
-<script setup>
-import Card from 'primevue/card';
-import Chip from 'primevue/chip';
-import Fieldset from 'primevue/fieldset';
+<script setup lang="ts">
+import Card from 'primevue/card'
+import Chip from 'primevue/chip'
+import Fieldset from 'primevue/fieldset'
+import type { Cocktail } from "~/types/types"
 
 defineProps({
   cocktail: {
-    type: String,
+    type: Object as PropType<Cocktail>,
     default: null,
-    required: false
+    required: true
   }
 })
 
@@ -100,7 +101,7 @@ const iconByComplexity = {
  * @param chips - массив вкусов коктейля
  * @returns {string[]}
  */
-const mappedChips = (chips) => {
+const mappedChips = (chips:string): string[] => {
   if (Array.isArray(chips)) {
     return chips.flat(Infinity)
   }
@@ -112,5 +113,5 @@ const isFavorite = computed(() => false)
  * Добавление коктейля в избранное
  * @param id
  */
-const addToFavorite = (id) => {}
+const addToFavorite = (id: string) => {}
 </script>

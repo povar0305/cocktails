@@ -97,10 +97,11 @@ import Chip from "primevue/chip"
 import Fieldset from 'primevue/fieldset'
 import Timeline from 'primevue/timeline'
 
-import { defineProps } from 'vue';
+import { defineProps } from 'vue'
+import type { Cocktail } from "~/types/types"
 
 const props = defineProps<{
-  cocktail: Object;
+  cocktail: Cocktail;
 }>();
 
 /**
@@ -110,10 +111,10 @@ const props = defineProps<{
  */
 const mappedChips = computed(() => {
   if (Array.isArray(props.cocktail?.cocktail_taste)) {
-    return props.cocktail?.cocktail_taste.flat(Infinity)
+    return props.cocktail.cocktail_taste.flat(Infinity)
   }
   return []
 })
 
-const instructionsArray = computed(() => props.cocktail?.cocktail_build.split('\n').map((step) => step.replace(/^\d+\.\s*/, '')).filter(str => str.trim() !== ''))
+const instructionsArray = computed(() => props.cocktail?.cocktail_build?.split('\n').map((step) => step.replace(/^\d+\.\s*/, '')).filter(str => str.trim() !== ''))
 </script>

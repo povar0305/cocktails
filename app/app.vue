@@ -12,11 +12,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ProgressSpinner from 'primevue/progressspinner'
 
 import { ModalsContainer } from 'vue-final-modal'
-import { useCocktailsStore } from '~/stores/cocktails.js'
+import { useCocktailsStore } from '@/stores/cocktails'
 
 const cocktailsStore = useCocktailsStore()
 const isLoading = computed(() => cocktailsStore.isLoading)
