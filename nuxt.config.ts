@@ -53,7 +53,7 @@ export default defineNuxtConfig({
     '@vue-final-modal/nuxt'
   ],
   plugins: [
-    '~/plugins/primevue.js'
+    '~/plugins/primevue.ts'
   ],
   primevue: {
     options: {

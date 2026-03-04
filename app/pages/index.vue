@@ -40,11 +40,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import CHeader from '~/components/c-header.vue'
 
-import { useCocktailsStore } from '~/stores/cocktails'
+import { useCocktailsStore } from '@/stores/cocktails'
 import { useDebounceFn } from '@vueuse/core'
+
+import type { LocationQueryValue } from "vue-router"
 
 const cocktailsStore = useCocktailsStore()
 
@@ -67,12 +69,13 @@ const debouncedGetCocktails = useDebounceFn(async () => {
 }, 500)
 /**
  * Обновление поискового запроса
- * @param {String|null} newValue - новое значение для поиска
+ * @param {string | null | undefined} newValue - новое значение для поиска
  */
-const onUpdateQuery = (newValue = null) => {
+const onUpdateQuery = (newValue?: string | LocationQueryValue[] | undefined) => {
   if (typeof newValue === 'string' || !newValue) {
     cocktailsStore.setQuery(newValue)
     navigateTo(`/?search=${query.value}`)
+
     if (!newValue) {
       cocktailsStore.setCocktails([])
     } else {
@@ -80,9 +83,10 @@ const onUpdateQuery = (newValue = null) => {
     }
   }
 }
+
 onMounted(() => {
   if (route.query.search) {
-    onUpdateQuery(route.query.search)
+    onUpdateQuery(route?.query?.search)
   }
 })
 </script>
