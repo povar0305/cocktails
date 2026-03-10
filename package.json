@@ -19,7 +19,6 @@
     "@tailwindcss/vite": "^4.1.18",
     "@vue-final-modal/nuxt": "1.0.3",
     "@vueuse/core": "^14.1.0",
-    "axios": "1.13.5",
     "eslint": "^9.39.2",
     "nuxt": "4.2.2",
     "pinia": "^3.0.4",
