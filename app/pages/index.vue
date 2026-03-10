@@ -53,12 +53,25 @@ const cocktailsStore = useCocktailsStore()
 const cocktails = computed(() => cocktailsStore.cocktails || [])
 const filteredCocktails = computed(() => cocktailsStore.filteredCocktails)
 const hasSelectedFilters = computed(() => cocktailsStore.hasSelectedFiltersValue)
+
 const mappedCocktails = computed(()=> hasSelectedFilters.value ? filteredCocktails.value : cocktails.value)
 
 const isLoading = computed(() => cocktailsStore.isLoading)
 
 const route = useRoute()
-const query = computed(() => route.query.search || cocktailsStore.query || null as LocationQueryValue)
+const query = computed<string | undefined>(() => {
+  const actualQuery = route.query.search ?? cocktailsStore.query
+
+  if (Array.isArray(actualQuery)) {
+    return actualQuery[0] ?? undefined
+  }
+
+  if (actualQuery === null || actualQuery === undefined) {
+    return undefined
+  }
+
+  return actualQuery ?? undefined
+})
 
 const debouncedGetCocktails = useDebounceFn(async () => {
   const cocktails = await cocktailsStore.getCocktailsByName() || []

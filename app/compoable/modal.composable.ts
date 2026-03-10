@@ -7,7 +7,7 @@ export const useModalOptions = () => {
 
   const options = ref<{
     contentTransition: string
-    swipeToClose: string
+    swipeToClose: 'none' | 'down' | 'up' | 'right' | 'left' | undefined
     class: string
     contentClass: string
     overlayClass: string
@@ -15,9 +15,9 @@ export const useModalOptions = () => {
   }>({
     contentTransition: breakpointSmallerMd.value ? 'vfm-slide-down' : 'fade',
     swipeToClose: breakpointSmallerMd.value ? 'down' : 'none',
-    class: 'c-modal',
-    contentClass: 'c-modal-content',
-    overlayClass: 'c-modal-overlay',
+    class: 'modal',
+    contentClass: 'modal-content',
+    overlayClass: 'modal-overlay',
     overlayTransition: 'vfm-fade'
   })
 

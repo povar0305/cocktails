@@ -71,8 +71,6 @@
       </p>
     </Fieldset>
 
-
-
     <div class="flex flex-col gap-2">
       <h2 class="text-lg">Похожие коктейли</h2>
 

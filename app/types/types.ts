@@ -2,7 +2,7 @@ export interface Cocktail {
   cocktail_author: string; // Идентификатор коктейля
   cocktail_base_type: string; // Название коктейля
   cocktail_build?: string | undefined; // Легенда или рассказ, связанный с коктейлем
-  cocktail_complexity_type: string; // Основной
+  cocktail_complexity_type: 'легко'|'средне'|'сложно'; // Сложность коктейля
   cocktail_ingredients: string[]; // Тип напитка
   cocktail_like: string[]; // Рекомендации по подаче
   cocktail_name: string; // Общий тип коктейля
