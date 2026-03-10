@@ -31,7 +31,7 @@
         raised
         as="a"
         rel="noopener"
-        :href="`/cocktail/${ Math.floor(Math.random() * 101) }`"
+        href="/cocktail/random"
       >
         <template #icon>
           <span class="material-icons">celebration</span>

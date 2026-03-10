@@ -101,7 +101,7 @@ const iconByComplexity = {
  * @param chips - массив вкусов коктейля
  * @returns {string[]}
  */
-const mappedChips = (chips:string): string[] => {
+const mappedChips = (chips:string|undefined): string[] => {
   if (Array.isArray(chips)) {
     return chips.flat(Infinity)
   }

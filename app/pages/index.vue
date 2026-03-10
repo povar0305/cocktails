@@ -58,7 +58,7 @@ const mappedCocktails = computed(()=> hasSelectedFilters.value ? filteredCocktai
 const isLoading = computed(() => cocktailsStore.isLoading)
 
 const route = useRoute()
-const query = computed(() => route.query.search || cocktailsStore.query || null)
+const query = computed(() => route.query.search || cocktailsStore.query || null as LocationQueryValue)
 
 const debouncedGetCocktails = useDebounceFn(async () => {
   const cocktails = await cocktailsStore.getCocktailsByName() || []
