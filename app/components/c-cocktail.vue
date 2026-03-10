@@ -13,7 +13,7 @@
       </div>
 
       <div
-        v-show="cocktail?.cocktail_taste.length"
+        v-show="cocktail?.cocktail_taste?.length"
         class="flex gap-2 flex-wrap"
       >
         <Chip

@@ -75,7 +75,7 @@ const filtersKey = [
 const mappedFilters = computed(() => filters.value.filter(item => filtersKey.includes(item.key)))
 
 const selectedFilters = computed(() => cocktailsStore.selectedFilters)
-const onUpdateSelectedFilters = ({ key, value = null }) => {
+const onUpdateSelectedFilters = ({ key, value = null }: { key: string; value?: string | number | null }) => {
   cocktailsStore.setSelectedFilters({ key, value})
 }
 </script>

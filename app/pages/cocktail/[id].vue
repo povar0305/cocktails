@@ -34,7 +34,11 @@ const breadcrumbs = computed(() => [
 ])
 
 const cocktailStore = useCocktailsStore()
-const cocktail = computed(() => cocktailStore.cocktail || null)
+const cocktail = computed(() => cocktailStore.cocktail)
 
-cocktailStore.getCocktailData(id)
+if (id ==='random') {
+  await cocktailStore.getRandomCocktail()
+} else {
+  await cocktailStore.getCocktailData(id)
+}
 </script>

@@ -6,7 +6,7 @@ import type { Cocktail, Filter } from '~/types/types'
 
 interface State {
   cocktails: Cocktail[]
-  cocktail: Cocktail | null
+  cocktail: Cocktail
   isLoading: boolean
   query: string | null
   filters: Filter[]
@@ -16,7 +16,7 @@ interface State {
 export const useCocktailsStore = defineStore('cocktails', {
   state: (): State => ({
     cocktails: [],
-    cocktail: null,
+    cocktail: {} as Cocktail,
     isLoading: false,
     query: null,
     filters: [],
@@ -147,6 +147,7 @@ export const useCocktailsStore = defineStore('cocktails', {
       try {
         this.isLoading = true
         const data = await Api.get('api/v1/cocktails/id/random')
+        this.cocktail = data[0] || null
         return data[0] || {}
       } catch (error) {
         console.error(error)
