@@ -54,6 +54,9 @@ export const useCocktailsStore = defineStore('cocktails', {
     setCocktails(cocktails: Cocktail[] = []) {
       this.cocktails = cocktails || []
     },
+    setCocktail(cocktail: Cocktail) {
+      this.cocktail = cocktail
+    },
     initFilters() {
       this.filters = [
         {
@@ -146,8 +149,10 @@ export const useCocktailsStore = defineStore('cocktails', {
     async getRandomCocktail(): Promise<Cocktail | {}> {
       try {
         this.isLoading = true
+
         const data = await Api.get('api/v1/cocktails/id/random')
-        this.cocktail = data[0] || null
+        this.setCocktail(data[0])
+
         return data[0] || {}
       } catch (error) {
         console.error(error)
@@ -181,7 +186,9 @@ export const useCocktailsStore = defineStore('cocktails', {
       try {
         this.isLoading = true
         const data: Cocktail = await Api.get(`/api/v1/cocktails/id/${id}`)
-        this.cocktail = data || null
+
+        this.setCocktail(data)
+
         return data || null
       } catch (error) {
         console.error(error)

@@ -3,9 +3,7 @@
     <div class="flex gap-2 lg:gap-3 w-full justify-between lg:flex-row-reverse lg:w-full">
       <FloatLabel
         :pt="{
-          root: {
-            class: 'flex-1 flex lg:max-w-full'
-          }
+          root: { class: 'flex-1 flex lg:max-w-full' }
         }"
         variant="on"
       >
@@ -44,7 +42,7 @@
         v-show="cocktails.length"
         class="text-base whitespace-nowrap"
       >
-        Всего найдено  <span class="font-bold"> {{ cocktails.length }} </span>
+        Всего найдено <span class="font-bold"> {{ cocktails.length }} </span>
       </p>
 
       <div

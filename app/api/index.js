@@ -27,7 +27,6 @@ class Api {
 
       return result?.data || {}
     } catch (error) {
-      // Отдаем весь объект ошибки
       console.error('API error: ', error)
       throw error
     }

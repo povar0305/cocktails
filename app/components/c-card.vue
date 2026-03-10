@@ -31,9 +31,9 @@
             </span>
 
             <span
-            v-else
-            class="material-symbols-outlined"
-          >
+              v-else
+              class="material-symbols-outlined"
+            >
               favorite
             </span>
           </template>
@@ -43,7 +43,7 @@
 
     <template #subtitle>
       <div
-        v-show="cocktail?.cocktail_taste.length"
+        v-show="cocktail?.cocktail_taste?.length"
         class="flex gap-2 flex-wrap"
       >
         <Chip
@@ -71,6 +71,7 @@
 import Card from 'primevue/card'
 import Chip from 'primevue/chip'
 import Fieldset from 'primevue/fieldset'
+
 import type { Cocktail } from "~/types/types"
 
 defineProps({
@@ -81,27 +82,26 @@ defineProps({
   }
 })
 
-const iconByComplexity = {
-  'легко': {
+const iconByComplexity: Record<'легко' | 'средне' | 'сложно', { icon: string; colorClass: string }> = {
+  легко: {
     icon: 'battery_android_0',
     colorClass: 'text-green-600'
   },
-  'средне': {
+  средне: {
     icon: 'battery_android_3',
     colorClass: 'text-orange-600'
   },
-  'сложно': {
+  сложно: {
     icon: 'battery_android_full',
     colorClass: 'text-red-600'
   }
 }
-
 /**
  * Получение корректного массива вкусов коктейля
  * @param chips - массив вкусов коктейля
  * @returns {string[]}
  */
-const mappedChips = (chips:string|undefined): string[] => {
+const mappedChips = (chips: string[] | undefined): string[] => {
   if (Array.isArray(chips)) {
     return chips.flat(Infinity)
   }
