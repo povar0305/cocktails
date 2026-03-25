@@ -44,7 +44,7 @@ export default defineNuxtConfig({
     './app/assets/styles/main.css',
     'vue-final-modal/style.css',
   ],
-  devtools: {enabled: true},
+  devtools: { enabled: true },
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended'

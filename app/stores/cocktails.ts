@@ -2,7 +2,9 @@ import { defineStore } from 'pinia'
 
 import Api from '~/api'
 import { filterTypes } from '~/constants/filterTypes.js'
-import type { Cocktail, Filter } from '~/types/types'
+
+import type { Cocktail } from "~/types/Cocktail"
+import type { Filter } from "~/types/Filter"
 
 interface State {
   cocktails: Cocktail[]

@@ -80,6 +80,6 @@ const mappedFilters = computed(() => filters.value.filter(item => filtersKey.inc
 
 const selectedFilters = computed(() => cocktailsStore.selectedFilters)
 const onUpdateSelectedFilters = ({ key, value = null }: { key: string; value?: string | number | null }) => {
-  cocktailsStore.setSelectedFilters({ key, value})
+  cocktailsStore.setSelectedFilters({ key, value })
 }
 </script>
