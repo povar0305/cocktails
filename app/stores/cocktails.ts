@@ -2,10 +2,12 @@ import { defineStore } from 'pinia'
 
 import Api from '~/api'
 import { filterTypes } from '~/constants/filterTypes.js'
+import { useNotificationStore } from "~/stores/notifications";
 
 import type { Cocktail } from "~/types/Cocktail"
 import type { State } from "~/types/State";
 import type { FilterItem } from "~/types/Filter";
+import type { Message } from "~/types/Message";
 
 export const useCocktailsStore = defineStore('cocktails', {
   state: (): State => ({
@@ -146,6 +148,8 @@ export const useCocktailsStore = defineStore('cocktails', {
         this.isLoading = true
 
         const data = await Api.get('api/v1/cocktails/id/random') as Cocktail[] | undefined
+
+
         if (data && data.length > 0) {
           this.setCocktail(data?.[0] as Cocktail)
           return data?.[0] || {} as Cocktail
@@ -154,6 +158,15 @@ export const useCocktailsStore = defineStore('cocktails', {
         return {} as Cocktail
       } catch (error) {
         console.error(error)
+
+        const notif = useNotificationStore()
+        notif.addMessage({
+          severity: 'error',
+          summary: 'Ошибка получения данных',
+          detail: `Не удалось загрузить информацию по рандомному коктейлю, ошибка - ${error}`,
+          shown: false
+        } as Message)
+
         return {} as Cocktail
       } finally {
         this.isLoading = false
@@ -173,11 +186,26 @@ export const useCocktailsStore = defineStore('cocktails', {
             return cocktail
           }) || []
         } else {
+          const notif = useNotificationStore()
+          notif.addMessage({
+            severity: 'info',
+            summary: 'Не хватает данных',
+            detail: `Введите поисковый запрос`,
+            shown: false
+          } as Message)
+
           return []
         }
 
       } catch (error) {
         console.error(error)
+        const notif = useNotificationStore()
+        notif.addMessage({
+          severity: 'error',
+          summary: 'Ошибка получения данных',
+          detail: `Не удалось загрузить информацию по коктейлям, ошибка - ${error}`,
+          shown: false
+        } as Message)
         return []
       } finally {
         this.isLoading = false
@@ -193,6 +221,14 @@ export const useCocktailsStore = defineStore('cocktails', {
         return data || null
       } catch (error) {
         console.error(error)
+        const notif = useNotificationStore()
+        notif.addMessage({
+          severity: 'error',
+          summary: 'Ошибка получения данных',
+          detail: `Не удалось загрузить информацию по рандомному коктейлю, ошибка - ${error}`,
+          shown: false
+        } as Message)
+
         return null
       } finally {
         this.isLoading = false
