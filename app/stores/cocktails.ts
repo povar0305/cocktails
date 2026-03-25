@@ -154,7 +154,7 @@ export const useCocktailsStore = defineStore('cocktails', {
         const data = await Api.get('api/v1/cocktails/id/random')
         this.setCocktail(data[0])
 
-        return data[0] || {}
+        return data?.[0] || {}
       } catch (error) {
         console.error(error)
       } finally {
