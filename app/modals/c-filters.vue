@@ -42,7 +42,7 @@
               :placeholder="filter.label"
               :max-selected-labels="3"
               append-to="self"
-              @update:modelValue="onUpdateSelectedFilters({ key: filter?.key, value: $event})"
+              @update:model-value="onUpdateSelectedFilters({ key: filter?.key, value: $event})"
             />
           </template>
         </div>
@@ -58,6 +58,10 @@ import { useCocktailsStore } from '~/stores/cocktails'
 import { filterTypes } from '~/constants/filterTypes.js'
 
 const cocktailsStore = useCocktailsStore()
+
+defineEmits([
+  'update:model-value'
+])
 
 const { options } = useModalOptions()
 

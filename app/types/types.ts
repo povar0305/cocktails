@@ -9,7 +9,7 @@ export interface Cocktail {
   cocktail_note: string; //  Массив вкусов коктейля
   cocktail_story: string; // Ингредиенты
   cocktail_taste?: string[] | undefined; // Способ сборки
-  cocktail_type: any; // Заметки, комментарии
+  cocktail_type: string; // Заметки, комментарии
   cocktail_type_cap: string; // Наименование похожих коктейлей
   cocktail_type_drinks: string; // Степень сложности
   id: string; // Автор рецепта

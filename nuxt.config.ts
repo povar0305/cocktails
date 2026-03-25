@@ -45,6 +45,10 @@ export default defineNuxtConfig({
     'vue-final-modal/style.css',
   ],
   devtools: {enabled: true},
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-recommended'
+  ],
   modules: [
     '@nuxt/eslint',
     '@pinia/nuxt',
