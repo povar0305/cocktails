@@ -5,4 +5,4 @@ export const filterTypes = {
   range: 'range',
   rangeText: 'range_text',
   checkbox: 'checkbox'
-}
+} as const

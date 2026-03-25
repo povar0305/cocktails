@@ -48,7 +48,7 @@ import { useDebounceFn } from '@vueuse/core'
 
 import type { LocationQueryValue } from "vue-router"
 
-const cocktailsStore = useCocktailsStore()
+const cocktailsStore: ReturnType<typeof useCocktailsStore> = useCocktailsStore()
 
 const cocktails = computed(() => cocktailsStore.cocktails || [])
 const filteredCocktails = computed(() => cocktailsStore.filteredCocktails)

@@ -56,8 +56,10 @@ import { useModalOptions } from '~/compoable/modal.composable.js'
 import { VueFinalModal } from 'vue-final-modal'
 import { useCocktailsStore } from '~/stores/cocktails'
 import { filterTypes } from '~/constants/filterTypes.js'
+import type { FilterItem } from "~/types/Filter";
+import type { UnwrapRef } from "vue";
 
-const cocktailsStore = useCocktailsStore()
+const cocktailsStore: ReturnType<typeof useCocktailsStore> = useCocktailsStore()
 
 defineEmits([
   'update:model-value'
@@ -65,8 +67,8 @@ defineEmits([
 
 const { options } = useModalOptions()
 
-const filters = computed(() => cocktailsStore.filters || [] )
-const filtersKey = [
+const filters:ComputedRef<Array<FilterItem>> = computed(() => cocktailsStore.filters)
+const filtersKey:string[] = [
   'cocktail_base_type',
   'cocktail_type',
   'cocktail_taste',
@@ -76,10 +78,10 @@ const filtersKey = [
   'cocktail_like',
   'score'
 ]
-const mappedFilters = computed(() => filters.value.filter(item => filtersKey.includes(item.key)))
+const mappedFilters:ComputedRef<Array<FilterItem>> = computed(() => filters.value.filter(item => filtersKey.includes(item.key)))
 
-const selectedFilters = computed(() => cocktailsStore.selectedFilters)
+const selectedFilters: ComputedRef<UnwrapRef<Record<string, string | number | null>>> = computed(() => cocktailsStore.selectedFilters )
 const onUpdateSelectedFilters = ({ key, value = null }: { key: string; value?: string | number | null }) => {
-  cocktailsStore.setSelectedFilters({ key, value})
+  cocktailsStore.setSelectedFilters({ key, value })
 }
 </script>

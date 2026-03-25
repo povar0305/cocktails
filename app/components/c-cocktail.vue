@@ -2,18 +2,18 @@
   <div class="flex flex-col gap-10 px-8">
     <div class="w-full flex justify-between">
       <div class="flex items-center gap-3">
-        <h1 class="text-4xl font-bold text-white">{{ cocktail?.cocktail_name }}</h1>
+        <h1 class="text-4xl font-bold text-white">{{ cocktail.cocktail_name }}</h1>
 
         <span
-          v-tooltip.top="cocktail?.cocktail_author"
+          v-tooltip.top="cocktail.cocktail_author"
           class="text-gray-400 truncate max-w-2xs"
         >
-          {{ cocktail?.cocktail_author }}
+          {{ cocktail.cocktail_author }}
         </span>
       </div>
 
       <div
-        v-show="cocktail?.cocktail_taste?.length"
+        v-show="cocktail.cocktail_taste?.length"
         class="flex gap-2 flex-wrap"
       >
         <Chip
@@ -96,7 +96,7 @@ import Fieldset from 'primevue/fieldset'
 import Timeline from 'primevue/timeline'
 
 import { defineProps } from 'vue'
-import type { Cocktail } from "~/types/types"
+import type { Cocktail } from "~/types/Cocktail"
 
 const props = defineProps<{
   cocktail: Cocktail;
@@ -114,5 +114,10 @@ const mappedChips = computed(() => {
   return []
 })
 
-const instructionsArray = computed(() => props.cocktail?.cocktail_build?.split('\n').map((step) => step.replace(/^\d+\.\s*/, '')).filter(str => str.trim() !== ''))
+const instructionsArray: ComputedRef<string[] | undefined> = computed(() =>
+  props.cocktail?.cocktail_build
+    ?.split('\n')
+    .map((step) => step.replace(/^\d+\.\s*/, ''))
+    .filter((str) => str.trim() !== '')
+)
 </script>
