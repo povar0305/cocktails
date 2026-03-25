@@ -96,7 +96,7 @@ import Fieldset from 'primevue/fieldset'
 import Timeline from 'primevue/timeline'
 
 import { defineProps } from 'vue'
-import type { Cocktail } from "~/types/types"
+import type { Cocktail } from "~/types/Cocktail"
 
 const props = defineProps<{
   cocktail: Cocktail;

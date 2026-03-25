@@ -72,7 +72,7 @@ import Card from 'primevue/card'
 import Chip from 'primevue/chip'
 import Fieldset from 'primevue/fieldset'
 
-import type { Cocktail } from "~/types/types"
+import type { Cocktail } from "~/types/Cocktail"
 
 defineProps({
   cocktail: {

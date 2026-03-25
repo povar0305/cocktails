@@ -15,10 +15,3 @@ export interface Cocktail {
   id: string; // Автор рецепта
   score?: number | undefined; // Оценка
 }
-
-export interface Filter {
-  key: string;            // Ключ для фильтрации
-  label: string;      // Массив строк для вариантов выбора
-  options: string[];          // Заголовок инпута
-  element: string;          // Наименование элемента для отображения
-}
