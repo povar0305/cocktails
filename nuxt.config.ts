@@ -51,9 +51,9 @@ export default defineNuxtConfig({
   ],
   modules: [
     '@nuxt/eslint',
-    '@pinia/nuxt',
     '@primevue/nuxt-module',
-    '@vue-final-modal/nuxt'
+    '@vue-final-modal/nuxt',
+    '@pinia/nuxt'
   ],
   plugins: [
     '~/plugins/primevue.ts'
