@@ -51,8 +51,8 @@
       >
         <MultiSelect
           v-for="filter in primaryFilters"
-          :key="filter.key"
           v-show="filter.element === filterTypes.multiSelect"
+          :key="filter.key"
           :model-value="selectedFilters[filter?.key] || []"
           display="chip"
           :options="filter.options"
@@ -60,7 +60,7 @@
           :placeholder="filter.label"
           :max-selected-labels="3"
           class="lg:w-60"
-          @update:modelValue="onUpdateSelectedFilters({ key: filter?.key, value: $event })"
+          @update:model-value="onUpdateSelectedFilters({ key: filter?.key, value: $event })"
         />
       </div>
 

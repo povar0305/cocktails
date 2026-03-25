@@ -77,7 +77,6 @@ import type { Cocktail } from "~/types/types"
 defineProps({
   cocktail: {
     type: Object as PropType<Cocktail>,
-    default: null,
     required: true
   }
 })
@@ -113,5 +112,7 @@ const isFavorite = computed(() => false)
  * Добавление коктейля в избранное
  * @param id
  */
-const addToFavorite = (id: string) => {}
+const addToFavorite = (id: string) => {
+  console.debug(id)
+}
 </script>

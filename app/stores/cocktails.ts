@@ -27,16 +27,17 @@ export const useCocktailsStore = defineStore('cocktails', {
       return state.cocktails.filter((cocktail) => {
         // Проверяем каждый фильтр
         return Object.entries(state.selectedFilters).every(([key, values]) => {
-          const cocktailValue = (cocktail as any)[key] // Временно any, так как ключи динамические
+          const keyName = key as keyof Cocktail // приводим ключ к типу keyof Cocktail
+          const cocktailValue = cocktail[keyName]
 
           if (Array.isArray(cocktailValue)) {
-            return (values as unknown as any[]).some(val => cocktailValue?.includes(val))
+            return (values as unknown as string[]).some(val => cocktailValue?.includes(val));
           } else if (typeof cocktailValue === 'string') {
             return (values as unknown as string[]).includes(cocktailValue)
           } else if (typeof cocktailValue === 'number') {
-            // Т.к. сравниваем числа и строки
-            return Number(cocktailValue).toString() === (values as string | number).toString()
+            return Number(cocktailValue).toString() === (values as unknown as string | number).toString()
           }
+          return true; // если тип не подходит, считаем, что условие выполнено
         })
       })
     },
@@ -146,7 +147,7 @@ export const useCocktailsStore = defineStore('cocktails', {
         this.query = newValue
       }
     },
-    async getRandomCocktail(): Promise<Cocktail | {}> {
+    async getRandomCocktail(): Promise<Cocktail> {
       try {
         this.isLoading = true
 
@@ -156,7 +157,6 @@ export const useCocktailsStore = defineStore('cocktails', {
         return data[0] || {}
       } catch (error) {
         console.error(error)
-        return {}
       } finally {
         this.isLoading = false
       }
