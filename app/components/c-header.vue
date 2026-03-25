@@ -88,6 +88,10 @@ import { useCocktailsStore } from '~/stores/cocktails'
 import { filterTypes } from '~/constants/filterTypes'
 import { useModal } from 'vue-final-modal'
 
+import type { Cocktail } from "~/types/Cocktail"
+import type { FilterItem } from "~/types/Filter"
+import type { UnwrapRef } from "vue"
+
 defineEmits(['update:query'])
 
 const props = defineProps({
@@ -100,14 +104,14 @@ const props = defineProps({
 
 const { query } = props
 
-const cocktailsStore = useCocktailsStore()
-const cocktails = computed(() => cocktailsStore.cocktails)
+const cocktailsStore: ReturnType<typeof useCocktailsStore> = useCocktailsStore();
+const cocktails:ComputedRef<Array<Cocktail>> = computed(() => cocktailsStore.cocktails)
 
-const filters = computed(() => cocktailsStore.filters)
+const filters:ComputedRef<Array<FilterItem>> = computed(() => cocktailsStore.filters)
 const primaryFiltersKey = ['cocktail_type', 'cocktail_taste']
 
-const primaryFilters = computed(() => filters.value.filter(item => primaryFiltersKey.includes(item.key)))
-const selectedFilters = computed(() => cocktailsStore.selectedFilters )
+const primaryFilters:ComputedRef<Array<FilterItem>> = computed(() => filters.value.filter(item => primaryFiltersKey.includes(item.key)))
+const selectedFilters: ComputedRef<UnwrapRef<Record<string, string | number | null>>> = computed(() => cocktailsStore.selectedFilters )
 const onUpdateSelectedFilters = ({ key, value = null }: { key: string; value?: string | number | null }) => {
   cocktailsStore.setSelectedFilters({ key, value })
 }

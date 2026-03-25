@@ -18,6 +18,6 @@ import ProgressSpinner from 'primevue/progressspinner'
 import { ModalsContainer } from 'vue-final-modal'
 import { useCocktailsStore } from '@/stores/cocktails'
 
-const cocktailsStore = useCocktailsStore()
+const cocktailsStore: ReturnType<typeof useCocktailsStore> = useCocktailsStore()
 const isLoading = computed(() => cocktailsStore.isLoading)
 </script>
