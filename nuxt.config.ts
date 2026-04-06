@@ -1,24 +1,76 @@
-import Aura from '@primeuix/themes/aura';
-import { definePreset } from "@primeuix/themes";
-import tailwindcss from "@tailwindcss/vite";
 
-const MyPreset = definePreset(Aura, {
+import tailwindcss from "@tailwindcss/vite";
+import { definePreset } from "@primeuix/themes";
+import Aura from "@primeuix/themes/aura";
+
+
+const preset = definePreset(Aura, {
   semantic: {
-    primary: {
-      50: '{purple.50}',
-      100: '{purple.100}',
-      200: '{purple.200}',
-      300: '{purple.300}',
-      400: '{purple.400}',
-      500: '{purple.500}',
-      600: '{purple.600}',
-      700: '{purple.700}',
-      800: '{purple.800}',
-      900: '{purple.900}',
-      950: '{purple.950}'
+    colorScheme: {
+      light: {
+        primary: {
+          0: '#ffffff',
+          50: '{purple.50}',
+          100: '{purple.100}',
+          200: '{purple.200}',
+          300: '{purple.300}',
+          400: '{purple.400}',
+          500: '{purple.500}',
+          600: '{purple.600}',
+          700: '{purple.700}',
+          800: '{purple.800}',
+          900: '{purple.900}',
+          950: '{purple.950}'
+        },
+        surface: {
+          0: '#ffffff',
+          50: '{purple.50}',
+          100: '{purple.100}',
+          200: '{purple.200}',
+          300: '{purple.300}',
+          400: '{purple.400}',
+          500: '{purple.500}',
+          600: '{purple.600}',
+          700: '{purple.700}',
+          800: '{purple.800}',
+          900: '{purple.900}',
+          950: '{purple.950}'
+        }
+      },
+      dark: {
+        primary: {
+          0: '#ffffff',
+          50: '{pink.50}',
+          100: '{pink.100}',
+          200: '{pink.200}',
+          300: '{pink.300}',
+          400: '{pink.400}',
+          500: '{pink.500}',
+          600: '{pink.600}',
+          700: '{pink.700}',
+          800: '{pink.800}',
+          900: '{pink.900}',
+          950: '{pink.950}'
+        },
+        surface: {
+          0: '#ffffff',
+          50: '{pink.50}',
+          100: '{pink.100}',
+          200: '{pink.200}',
+          300: '{pink.300}',
+          400: '{pink.400}',
+          500: '{pink.500}',
+          600: '{pink.600}',
+          700: '{pink.700}',
+          800: '{pink.800}',
+          900: '{pink.900}',
+          950: '{pink.950}'
+        }
+      }
     }
   }
 });
+
 
 export default defineNuxtConfig({
   app: {
@@ -55,16 +107,17 @@ export default defineNuxtConfig({
     '@vue-final-modal/nuxt',
     '@pinia/nuxt'
   ],
-  plugins: [
-    '~/plugins/primevue.ts'
-  ],
   primevue: {
     options: {
+      darkModeSelector: '.app-dark',
       theme: {
-        preset: MyPreset
+        preset: preset
       }
     }
   },
+  plugins: [
+    '~/plugins/primevue.ts'
+  ],
   vite: {
     server: {
       proxy: {
@@ -75,7 +128,7 @@ export default defineNuxtConfig({
       }
     },
     plugins: [
-      tailwindcss(),
+      tailwindcss()
     ]
   }
 })

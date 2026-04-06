@@ -77,6 +77,27 @@
           <span class="material-icons">filter_alt</span>
         </template>
       </Button>
+
+      <ToggleSwitch
+        :model-value="isDarkTheme"
+        @change="onUpdateTheme"
+      >
+        <template #handle="{ checked }">
+          <span
+            v-if="checked"
+            class="material-symbols-outlined leading-[9px]! text-[11px]!"
+          >
+            brightness_7
+          </span>
+
+          <span
+            v-else
+            class="material-symbols-outlined leading-[9px]! text-[11px]!"
+          >
+            nightlight
+          </span>
+        </template>
+      </ToggleSwitch>
     </div>
   </div>
 </template>
@@ -119,5 +140,15 @@ const onUpdateSelectedFilters = ({ key, value = null }: { key: string; value?: s
 const { open: openFilterPopup } = useModal({
   component: CFilters
 })
+
+const isDarkTheme = computed(() => {
+  const classList = document.documentElement.classList
+  return classList.contains('app-dark')
+})
+
+const onUpdateTheme = () => {
+  const classList = document.documentElement.classList
+  classList.toggle('app-dark')
+}
 </script>
 
