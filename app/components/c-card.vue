@@ -1,7 +1,10 @@
 <template>
   <Card>
     <template #title>
-      <div class="flex justify-between w-full">
+      <div
+        v-if="!loading"
+        class="flex justify-between w-full"
+      >
         <div class="flex items-center gap-2 w-80">
           <nuxt-link :to="`cocktail/${cocktail.id}`">
             {{ cocktail.cocktail_name }}
@@ -39,11 +42,13 @@
           </template>
         </Button>
       </div>
+
+      <Skeleton v-else />
     </template>
 
     <template #subtitle>
       <div
-        v-show="cocktail?.cocktail_taste?.length"
+        v-if="cocktail?.cocktail_taste?.length && !loading"
         class="flex gap-2 flex-wrap"
       >
         <Chip
@@ -52,10 +57,16 @@
           :label="chip"
         />
       </div>
+
+      <Skeleton
+        v-else
+        height="2rem"
+      />
     </template>
 
     <template #content>
       <Fieldset
+        v-if="cocktail?.cocktail_type && !loading"
         class="h-full"
         :legend="cocktail?.cocktail_type"
       >
@@ -63,6 +74,11 @@
           {{ cocktail?.cocktail_note }}
         </p>
       </Fieldset>
+
+      <Skeleton
+        v-else
+        height="4rem"
+      />
     </template>
   </Card>
 </template>
@@ -71,6 +87,7 @@
 import Card from 'primevue/card'
 import Chip from 'primevue/chip'
 import Fieldset from 'primevue/fieldset'
+import Skeleton from 'primevue/skeleton'
 
 import type { Cocktail } from "~/types/Cocktail"
 
@@ -78,6 +95,10 @@ defineProps({
   cocktail: {
     type: Object as PropType<Cocktail>,
     required: true
+  },
+  loading: {
+    type: Boolean,
+    default: true
   }
 })
 
