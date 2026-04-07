@@ -1,11 +1,17 @@
 <template>
   <div class="flex flex-col gap-10 p-5">
     <Breadcrumb
+      v-if="!isLoading"
       :home="home"
       :model="breadcrumbs"
       :pt="{
         root: 'bg-none'
       }"
+    />
+
+    <Skeleton
+      v-else
+      height="3rem"
     />
 
     <c-cocktail :cocktail="cocktail"/>
@@ -45,6 +51,7 @@ const breadcrumbs:ComputedRef<BreadcrumbItem[]> = computed(() => [
 
 // Используем store коктейлей
 const cocktailsStore: ReturnType<typeof useCocktailsStore> = useCocktailsStore()
+const isLoading = computed(() => cocktailsStore.isLoading)
 
 // Вызовы API при загрузке компонента
 if (id === 'random') {
