@@ -6,18 +6,19 @@
     />
 
     <div
-      v-if="mappedCocktails.length && !isLoading"
+      v-if="mappedCocktails.length"
       class="container md:px-6 lg:px-8 2xl:px-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 2xl:grid-cols-4 items-stretch"
     >
       <c-card
         v-for="(cocktail, index) in mappedCocktails"
         :key="index"
         :cocktail="cocktail"
+        :loading="isLoading"
       />
     </div>
 
     <div
-      v-else-if="!isLoading"
+      v-else-if="!isLoading && mappedCocktails.length === 0"
       class="flex flex-col gap-6 items-center text-center h-full w-full"
     >
       <h2 class="text-6xl font-bold leading-tight">
@@ -54,7 +55,7 @@ const cocktails = computed(() => cocktailsStore.cocktails || [])
 const filteredCocktails = computed(() => cocktailsStore.filteredCocktails)
 const hasSelectedFilters = computed(() => cocktailsStore.hasSelectedFiltersValue)
 
-const mappedCocktails = computed(()=> hasSelectedFilters.value ? filteredCocktails.value : cocktails.value)
+const mappedCocktails = computed(()=> hasSelectedFilters.value ? filteredCocktails.value : (cocktails.value?.length ? cocktails.value : Array(12).fill('')))
 
 const isLoading = computed(() => cocktailsStore.isLoading)
 
