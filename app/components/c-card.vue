@@ -83,16 +83,13 @@ defineProps({
 
 const iconByComplexity: Record<'легко' | 'средне' | 'сложно', { icon: string; colorClass: string }> = {
   легко: {
-    icon: 'battery_android_0',
-    colorClass: 'text-green-600'
+    icon: 'battery_android_0'
   },
   средне: {
-    icon: 'battery_android_3',
-    colorClass: 'text-orange-600'
+    icon: 'battery_android_3'
   },
   сложно: {
-    icon: 'battery_android_full',
-    colorClass: 'text-red-600'
+    icon: 'battery_android_full'
   }
 }
 /**
