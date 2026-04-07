@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col gap-10 px-8">
-    <div class="w-full flex justify-between">
+    <div
+      v-if="!isLoading"
+      class="w-full flex justify-between"
+    >
       <div class="flex items-center gap-3">
         <h1 class="text-4xl font-bold text-white">{{ cocktail.cocktail_name }}</h1>
 
@@ -24,8 +27,14 @@
       </div>
     </div>
 
+    <Skeleton
+      v-else
+      height="3rem"
+    />
+
     <div class="flex gap-10 items-start">
       <Fieldset
+        v-if="!isLoading"
         class="h-auto flex-1 w-full max-w-1/3"
         legend="Ингредиенты"
       >
@@ -39,7 +48,15 @@
         </ul>
       </Fieldset>
 
-      <div class="flex flex-col gap-2 flex-1">
+      <Skeleton
+        v-else
+        height="20rem"
+      />
+
+      <div
+        v-if="!isLoading"
+        class="flex flex-col gap-2 flex-1"
+      >
         <Timeline
           :value="instructionsArray"
           :pt="{
@@ -54,9 +71,15 @@
 
         <p class="text-gray-300 text-sm">*Рекомендуется подавать в {{ cocktail?.cocktail_type_cap }}</p>
       </div>
+
+      <Skeleton
+        v-else
+        height="20rem"
+      />
     </div>
 
     <Fieldset
+      v-if="!isLoading"
       :pt="{
         content: 'flex flex-col gap-2'
       }"
@@ -71,7 +94,15 @@
       </p>
     </Fieldset>
 
-    <div class="flex flex-col gap-2">
+    <Skeleton
+      v-else
+      height="15rem"
+    />
+
+    <div
+      v-if="!isLoading"
+      class="flex flex-col gap-2"
+    >
       <h2 class="text-lg">Похожие коктейли</h2>
 
       <div class="flex flex-wrap gap-2">
@@ -87,6 +118,11 @@
         />
       </div>
     </div>
+
+    <Skeleton
+      v-else
+      height="3rem"
+    />
   </div>
 </template>
 
@@ -96,7 +132,9 @@ import Fieldset from 'primevue/fieldset'
 import Timeline from 'primevue/timeline'
 
 import { defineProps } from 'vue'
+import { useCocktailsStore } from "~/stores/cocktails"
 import type { Cocktail } from "~/types/Cocktail"
+import Skeleton from "primevue/skeleton";
 
 const props = defineProps<{
   cocktail: Cocktail;
@@ -120,4 +158,7 @@ const instructionsArray: ComputedRef<string[] | undefined> = computed(() =>
     .map((step) => step.replace(/^\d+\.\s*/, ''))
     .filter((str) => str.trim() !== '')
 )
+
+const cocktailsStore: ReturnType<typeof useCocktailsStore> = useCocktailsStore()
+const isLoading = computed(() => cocktailsStore.isLoading)
 </script>
