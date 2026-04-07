@@ -142,13 +142,18 @@ const { open: openFilterPopup } = useModal({
 })
 
 const isDarkTheme = computed(() => {
-  const classList = document.documentElement.classList
-  return classList.contains('app-dark')
+  const classList = document.getElementsByTagName('html')[0].classList
+  return is_dark_mode_preferred.value || classList.contains('app-dark')
 })
 
 const onUpdateTheme = () => {
-  const classList = document.documentElement.classList
+  const classList = document.getElementsByTagName('html')[0].classList
   classList.toggle('app-dark')
 }
+const is_dark_mode_preferred = computed(() => window?.matchMedia('(prefers-color-scheme: dark)').matches)
+ if (is_dark_mode_preferred.value) {
+   const classList = document.getElementsByTagName('html')[0].classList
+   classList.add('app-dark')
+ }
 </script>
 

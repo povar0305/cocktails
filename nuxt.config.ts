@@ -109,9 +109,11 @@ export default defineNuxtConfig({
   ],
   primevue: {
     options: {
-      darkModeSelector: '.app-dark',
       theme: {
-        preset: preset
+        preset: preset,
+        options: {
+          darkModeSelector: '.app-dark',
+        }
       }
     }
   },
